@@ -1,4 +1,4 @@
-package Sensors;
+package sensors;
 
 public class Environment {
 	public static double time = 0;

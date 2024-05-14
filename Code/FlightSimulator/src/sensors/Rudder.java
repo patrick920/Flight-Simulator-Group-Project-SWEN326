@@ -1,4 +1,4 @@
-package Sensors;
+package sensors;
 
 public class Rudder {
 	public double expected_yaw;

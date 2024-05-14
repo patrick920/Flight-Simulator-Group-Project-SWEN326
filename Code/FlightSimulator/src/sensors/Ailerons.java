@@ -1,4 +1,4 @@
-package Sensors;
+package sensors;
 
 public class Ailerons {
 	public double expected_roll;

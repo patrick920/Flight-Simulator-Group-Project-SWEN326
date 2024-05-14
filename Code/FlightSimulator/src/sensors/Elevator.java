@@ -1,4 +1,4 @@
-package Sensors;
+package sensors;
 
 public class Elevator {
 	public double expected_pitch;

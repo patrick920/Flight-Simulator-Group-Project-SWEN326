@@ -1,4 +1,4 @@
-package Sensors;
+package sensors;
 
 public class Sensor {
 	public double variance;
