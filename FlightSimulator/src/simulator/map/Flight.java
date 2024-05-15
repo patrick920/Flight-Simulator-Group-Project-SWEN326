@@ -1,6 +1,7 @@
 package map;
 
 import map.Point;
+import sensors.Plane;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -7,4 +7,5 @@ public class Plane {
 	public static Rudder rudder;
 	public static Sensor sensors;
 	public static double maxThrust;
+	public static double minThrust;
 }
