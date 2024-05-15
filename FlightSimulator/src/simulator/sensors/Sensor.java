@@ -1,13 +1,19 @@
 package sensors;
 
+import map.Flight;
+import map.Point;
+
 public class Sensor {
+	
 	public double variance;
 	public Sensor() {
 		variance = 0;
 	}
+	
 	public double getRoll() {
 		return Environment.roll + Math.random()*180*variance;
 	}
+	
 	public static void updateValues(double time, Ailerons aileron, Rudder rudder, Elevator elevator) {
 		double timeChange = time - Environment.time;
 		double distMoved;
@@ -26,15 +32,62 @@ public class Sensor {
 		}
 		
 		// Fake equation for speed change
-		double airspeedChange = ((Engine.thrust - 0.30*(Environment.altitude/42000)*Plane.maxThrust) - Environment.pitch)*(equilibrium_speed(Engine.thrust, Environment.pitch) - Environment.airspeed);
+		double airspeedChange = ((Engine.getThrust() - 0.30*(Environment.altitude/42000)*Plane.maxThrust) - Environment.pitch)*(equilibrium_speed(Engine.getThrust(), Environment.pitch) - Environment.airspeed);
 		
-		double roll_change = (aileron.expected_roll - Environment.roll)*aileron.getTurnSpeed();
-		double yaw_change = (rudder.expected_yaw - Environment.yaw)*rudder.getTurnSpeed();
-		double pitch_change = (elevator.expected_pitch - Environment.pitch)*elevator.getTurnSpeed()*thrust_differential(Engine.thrust);
+		double roll_change = (aileron.expected_roll - Environment.roll)*aileron.getTurnSpeed() + asymmetric_thrust();
+		double yaw_change = (rudder.expected_yaw - Environment.yaw)*rudder.getTurnSpeed() + asymmetric_thrust();
+		double pitch_change = (elevator.expected_pitch - Environment.pitch)*elevator.getTurnSpeed()*thrust_differential(Engine.getThrust());
+		
+		double headingChange = Environment.roll*0.1 + Environment.yaw*0.1;
+		
+		double deltaX = 0;
+		double deltaY = 0;
+		
+		if (Flight.heading <= 90 && Flight.heading >= 0) {
+			deltaX = distMoved*Math.sin(Flight.heading);
+			deltaY = distMoved*Math.cos(Flight.heading);
+		}
+		
+		else if (Flight.heading > 90) {
+			deltaX = distMoved*Math.cos(Flight.heading-90);
+			deltaY = distMoved*Math.sin(Flight.heading-90);
+		}
+		
+		else if (Flight.heading < 0 && Flight.heading >= -90) {
+			deltaX = distMoved*Math.sin(-Flight.heading);
+			deltaY = distMoved*Math.cos(-Flight.heading);
+		}
+		
+		else if (Flight.heading < -90) {
+			deltaX = distMoved*Math.cos(-Flight.heading-90);
+			deltaY = distMoved*Math.sin(-Flight.heading-90);
+		}
+		
+		Flight.currPos.latitude += deltaY;
+		Flight.currPos.longitude += deltaX;
+		Environment.airspeed += airspeedChange;
+		Environment.setRoll(Environment.roll + roll_change);
+		Environment.setYaw(Environment.yaw + yaw_change);
+		Environment.setPitch(Environment.pitch + pitch_change);
+		Environment.altitude += altitudeClimbed;
+		Environment.time = time;
+		Flight.setHeading(Flight.heading + (float)headingChange);
+		
 	}
 	
+	/**
+	 * Calculate impact of thrust on pitch
+	 */
 	public static double thrust_differential(double thrust) {
 		return (thrust - Plane.minThrust)/(Plane.maxThrust-Plane.minThrust);
+	}
+	
+	/**
+	 * Simulate asymmetric thrust effect on roll and yaw.
+	 * @return - Difference between thrust of left and right engines
+	 */
+	public static double asymmetric_thrust() {
+		return Engine.left_thrust - Engine.right_thrust;
 	}
 	
 	/**

@@ -26,9 +26,21 @@ public class Flight {
 	}
 	
 	public float getAngle(Point pos, Point target) {
-	    float angle = (float) Math.toDegrees(Math.atan2(pos.getX() - target.getX(), pos.getY() - target.getY()));
-
+	    float angle = (float) Math.toDegrees(Math.atan2(pos.getY() - target.getY(), pos.getX() - target.getX()));
+	    
 	    return angle;
+	}
+	
+	public static void setHeading(float heading) {
+		if (heading > 180) {
+			Flight.heading = (float)(heading - 360);
+			return;
+		}
+		else if (heading < -180) {
+			Flight.heading = (float)(heading + 360);
+			return;
+		}
+		Flight.heading = heading;
 	}
 	
 	public void removeWaypoint(Point p) {
