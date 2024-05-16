@@ -1,4 +1,4 @@
-package org.swen326;
+package org.swen326.application;
 
 import javafx.application.Application;
 import javafx.scene.Scene;

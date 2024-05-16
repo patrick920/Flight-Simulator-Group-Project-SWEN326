@@ -22,6 +22,12 @@
             <artifactId>javafx-controls</artifactId>
             <version>${javafx.version}</version>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version> <!-- Or the latest version available -->
+            <scope>test</scope> <!-- This ensures that JUnit is only used for testing -->
+        </dependency>
     </dependencies>
 
     <build>
@@ -31,7 +37,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>${javafx.maven.plugin.version}</version>
                 <configuration>
-                    <mainClass>org.swen326.Main</mainClass>
+                    <mainClass>org.swen326.application.Main</mainClass>
                 </configuration>
             </plugin>
         </plugins>
