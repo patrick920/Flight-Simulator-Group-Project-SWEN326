@@ -13,6 +13,10 @@ public class Elevator {
 		return elevator;
 	}
 	
+	/**
+	 * Set the turn speed of the elevators
+	 * @param speed - Number between 0 and 1, 1 being the maximum speed and 0 being the minimum
+	 */
 	public void setTurnSpeed(double speed) {
 		assertTrue("Turn speed must be between 0 and 1", speed <= 1);
 		assertTrue("Turn speed must be between 0 and 1", speed >= 0);

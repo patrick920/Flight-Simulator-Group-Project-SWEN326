@@ -10,10 +10,21 @@ public class Sensor {
 		variance = 0;
 	}
 	
+	/**
+	 * Return the roll with some deviance
+	 * @return - Roll as picked up by the sensor
+	 */
 	public double getRoll() {
 		return Environment.roll + Math.random()*180*variance;
 	}
 	
+	/**
+	 * Update the environment values after each time tick
+	 * @param time - Time of update in seconds
+	 * @param aileron - Ailerons for adjusting roll
+	 * @param rudder - Rudder for adjusting yaw
+	 * @param elevator - Elevator for adjusting pitch
+	 */
 	public static void updateValues(double time, Ailerons aileron, Rudder rudder, Elevator elevator) {
 		double timeChange = time - Environment.time;
 		double distMoved;
@@ -32,13 +43,13 @@ public class Sensor {
 		}
 		
 		// Fake equation for speed change
-		double airspeedChange = ((Engine.getThrust() - 0.30*(Environment.altitude/42000)*Plane.maxThrust) - Environment.pitch)*(equilibrium_speed(Engine.getThrust(), Environment.pitch) - Environment.airspeed);
+		double airspeedChange = ((Engine.getThrust() - 0.30*(Environment.altitude/42000)*Plane.maxThrust) - Environment.pitch)*(equilibrium_speed(Engine.getThrust(), Environment.pitch) - Environment.airspeed)*timeChange;
 		
-		double roll_change = (aileron.expected_roll - Environment.roll)*aileron.getTurnSpeed() + asymmetric_thrust();
-		double yaw_change = (rudder.expected_yaw - Environment.yaw)*rudder.getTurnSpeed() + asymmetric_thrust();
-		double pitch_change = (elevator.expected_pitch - Environment.pitch)*elevator.getTurnSpeed()*thrust_differential(Engine.getThrust());
+		double roll_change = ((aileron.expected_roll - Environment.roll)*aileron.getTurnSpeed() + asymmetric_thrust())*timeChange;
+		double yaw_change = ((rudder.expected_yaw - Environment.yaw)*rudder.getTurnSpeed() + asymmetric_thrust())*timeChange;
+		double pitch_change = ((elevator.expected_pitch - Environment.pitch)*elevator.getTurnSpeed()*thrust_differential(Engine.getThrust()))*timeChange;
 		
-		double headingChange = Environment.roll*0.1 + Environment.yaw*0.1;
+		double headingChange = (Environment.roll*0.1 + Environment.yaw*0.1)*timeChange;
 		
 		double deltaX = 0;
 		double deltaY = 0;
@@ -91,9 +102,9 @@ public class Sensor {
 	}
 	
 	/**
-	 * Calculate expected speed for a given thrust and pitch
-	 * @param thrust
-	 * @param pitch
+	 * Calculate speed at which speed does not change assuming thrust and pitch stays the same
+	 * @param thrust - Thrust of airplane
+	 * @param pitch - Pitch of airplane
 	 * @return
 	 */
 	public static double equilibrium_speed(double thrust, double pitch) {

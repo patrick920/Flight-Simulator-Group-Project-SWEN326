@@ -12,6 +12,11 @@ public class Rudder {
 	public static Rudder getRudder() {
 		return rudder;
 	}
+	
+	/**
+	 * Set the turn speed for the rudder
+	 * @param speed - Value between 0 and 1, 1 being the maximum speed and 0 the minimum
+	 */
 	public void setTurnSpeed(double speed) {
 		assertTrue("Turn speed must be between 0 and 1", speed <= 1);
 		assertTrue("Turn speed must be between 0 and 1", speed >= 0);
