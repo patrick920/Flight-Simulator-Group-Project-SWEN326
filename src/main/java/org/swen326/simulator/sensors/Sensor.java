@@ -1,7 +1,7 @@
   package org.swen326.simulator.sensors;
 
-  import map.Flight;
-  import map.Point;
+  import org.swen326.simulator.map.Flight;
+  import org.swen326.simulator.map.Point;
 
   public class Sensor {
 
