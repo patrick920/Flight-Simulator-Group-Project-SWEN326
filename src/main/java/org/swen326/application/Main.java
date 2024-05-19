@@ -6,29 +6,29 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import org.swen326.simulator.Simulator;
+import org.swen326.userinterface.UserInterface;
 
 /**
  * SWEN326 Group Project.
  * This is a flight simulation program.
  */
-public class Main extends Application {
+public class Main{
     /**
      * This is a reference to the simulator object in the code.
      */
     private Simulator simulator;
 
-    @Override
-    public void start(Stage stage) {
-        String javaVersion = System.getProperty("java.version");
-        String javafxVersion = System.getProperty("javafx.version");
-        Label l = new Label("Hello, JavaFX " + javafxVersion + ", running on Java " + javaVersion + ".");
-        Scene scene = new Scene(new StackPane(l), 640, 480);
-        stage.setScene(scene);
-        stage.show();
+    private UserInterface userInterface;
+
+    private void initialise(){
+        userInterface = new UserInterface();
+        userInterface.initialise();
     }
 
     public static void main(String[] args) {
-        launch();
+        System.out.println("Starting application.");
+        Main main = new Main();
+        main.initialise();
     }
 
 }
