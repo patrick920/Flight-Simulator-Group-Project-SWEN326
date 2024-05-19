@@ -18,13 +18,24 @@ public class Main{
      */
     private Simulator simulator;
 
+    /**
+     * The UserInterface class contains the JavaFX application.
+     */
     private UserInterface userInterface;
 
+    /**
+     * Initialise main program components.
+     */
     private void initialise(){
         userInterface = new UserInterface();
         userInterface.initialise();
+        simulator = new Simulator();
     }
 
+    /**
+     * The main method is called when the Java program starts.
+     * @param args program arguments. We're not using these in this project.
+     */
     public static void main(String[] args) {
         System.out.println("Starting application.");
         Main main = new Main();
