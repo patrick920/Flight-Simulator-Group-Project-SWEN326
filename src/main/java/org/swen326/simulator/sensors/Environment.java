@@ -21,8 +21,6 @@ public class Environment {
 		Environment.yaw = yaw;
 	}
 	
-	
-	
 	public static void setRoll(double roll) {
 		if (roll > 60) {
 			Environment.roll = roll - 120;
