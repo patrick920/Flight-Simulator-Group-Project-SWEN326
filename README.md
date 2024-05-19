@@ -16,5 +16,6 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 | Nicholas Winsley | winslenich | winslenich@myvuw.ac.nz |
 | Kunal Sharma | sharmakuna | Sharmakuna@myvuw.ac.nz |
 | Patrick Sawyers | sawyerpatr1 | Sawyerpatr1@myvuw.ac.nz |
-| Ziheng Wu | ? | ? |
+
+
 
