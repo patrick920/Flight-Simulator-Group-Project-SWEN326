@@ -5,8 +5,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import org.swen326.simulator.Simulator;
 
+/**
+ * SWEN326 Group Project.
+ * This is a flight simulation program.
+ */
 public class Main extends Application {
+    /**
+     * This is a reference to the simulator object in the code.
+     */
+    private Simulator simulator;
 
     @Override
     public void start(Stage stage) {
