@@ -55,7 +55,7 @@ public class HomePage {
         borderPane.setCenter(centreVBox);
 
         //Initialise the scene which contains all of the elements of the home screen.
-        homeScene = new Scene(borderPane, 400, 400);
+        homeScene = new Scene(borderPane, 1280, 720);
     }
 
     /**
