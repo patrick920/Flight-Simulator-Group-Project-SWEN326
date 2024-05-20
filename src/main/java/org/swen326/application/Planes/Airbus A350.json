@@ -1,0 +1,6 @@
+{
+    "model": "Airbus A350",
+    "engine_type": "Rolls-Royce Trent XWB",
+    "maximum_thrust": 430,
+    "minimum_thrust": 10
+}

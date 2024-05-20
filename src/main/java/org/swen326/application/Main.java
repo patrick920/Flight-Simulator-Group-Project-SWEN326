@@ -8,6 +8,11 @@ import javafx.stage.Stage;
 import org.swen326.simulator.Simulator;
 import org.swen326.userinterface.UserInterface;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import org.json.JSONObject;
+
 /**
  * SWEN326 Group Project.
  * This is a flight simulation program.
@@ -30,6 +35,22 @@ public class Main{
         userInterface = new UserInterface();
         userInterface.initialise();
         simulator = new Simulator();
+        try {
+            String content = new String(Files.readAllBytes(Paths.get("Boeing 737-800.json")));
+            JSONObject jsonObject = new JSONObject(content);
+
+            String model = jsonObject.getString("model");
+            String engine_type = jsonObject.getString("engine_type");
+            double maximum_thrust = jsonObject.getDouble("maximum_thrust");
+            double minimum_thrust = jsonObject.getDouble("minimum_thrust");
+
+            System.out.println("Model: " + model);
+            System.out.println("Engine Type: " + engine_type);
+            System.out.println("Maximum Thrust: " + maximum_thrust);
+            System.out.println("Minimum Thrust: " + minimum_thrust);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

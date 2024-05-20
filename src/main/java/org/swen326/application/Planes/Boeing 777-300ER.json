@@ -1,0 +1,6 @@
+{
+    "model": "Boeing 777-300ER",
+    "engine_type": "GE90-115B",
+    "maximum_thrust": 512,
+    "minimum_thrust": 10
+}
