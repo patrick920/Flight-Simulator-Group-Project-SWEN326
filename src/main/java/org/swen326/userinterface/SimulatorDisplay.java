@@ -11,7 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class HomePage {
+public class SimulatorDisplay {
     
     private Scene homeScene;
     private BorderPane borderPane;
@@ -24,7 +24,7 @@ public class HomePage {
     private Button startSimulation;
     private Button closeProgram;
 
-    public HomePage(Stage stage){
+    public SimulatorDisplay(Stage stage){
         centreVBox = new VBox();
         
         // Aircraft type dropdown
@@ -56,10 +56,6 @@ public class HomePage {
 
         // Start simulation and close program buttons
         startSimulation = new Button("Start Simulation");
-        startSimulation.setOnAction(e -> {
-            CockpitView cockpitView = new CockpitView(stage);
-            cockpitView.display();
-        });
         closeProgram = new Button("Close Program");
 
         // Add all elements to the VBox
