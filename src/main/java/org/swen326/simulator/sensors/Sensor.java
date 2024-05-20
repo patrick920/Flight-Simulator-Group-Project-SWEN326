@@ -32,7 +32,7 @@
 		}
 
 		// Fake equation for speed change
-		double airspeedChange = ((Engine.getThrust() - 0.30*(Environment.altitude/42000)*Plane.maxThrust) - Environment.pitch)*(equilibrium_speed(Engine.getThrust(), Environment.pitch) - Environment.airspeed);
+		double airspeedChange = ((Engine.getThrust() - (0.15*(Environment.altitude/42000)*Plane.maxThrust + 0.15)) - Environment.pitch)*(equilibrium_speed(Engine.getThrust(), Environment.pitch) - Environment.airspeed);
 
 		double roll_change = (aileron.expected_roll - Environment.roll)*aileron.getTurnSpeed() + asymmetric_thrust();
 		double yaw_change = (rudder.expected_yaw - Environment.yaw)*rudder.getTurnSpeed() + asymmetric_thrust();
