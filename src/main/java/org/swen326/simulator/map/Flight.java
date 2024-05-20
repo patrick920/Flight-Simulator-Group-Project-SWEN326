@@ -11,6 +11,7 @@
 	public static Point currPos;
 	public static float heading;
 	public static Plane plane;
+	public static double desired_altitude;
 	private static Flight flight = new Flight(new ArrayList<Point>(), new Point(0, 0));
 	private Flight(List<Point> waypoints, Point pos) {
 		Flight.waypoints = waypoints;

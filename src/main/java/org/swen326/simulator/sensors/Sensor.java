@@ -38,7 +38,7 @@
 		double yaw_change = (rudder.expected_yaw - Environment.yaw)*rudder.getTurnSpeed() + asymmetric_thrust();
 		double pitch_change = (elevator.expected_pitch - Environment.pitch)*elevator.getTurnSpeed()*thrust_differential(Engine.getThrust());
 
-		double headingChange = Environment.roll*0.1 + Environment.yaw*0.1;
+		double headingChange = Environment.roll*0.03 + Environment.yaw*0.03;
 
 		double deltaX = 0;
 		double deltaY = 0;
@@ -72,7 +72,19 @@
 		Environment.altitude += altitudeClimbed;
 		Environment.time = time;
 		Flight.setHeading(Flight.heading + (float)headingChange);
-
+		if (Flight.heading <= Flight.calcDir() + 2.5 && Flight.heading >= Flight.calcDir - 2.5) {
+			aileron.desired_roll = 0;
+			rudder.desired_yaw = 0;
+		}
+		if (Flight.altitude > Flight.desired_altitude + 500) {
+			elevator.desired_pitch = -10;
+		}
+		else if(Flight.altitude < Flight.desired_altitude - 500) {
+			elevator.desired_pitch = 25;
+		}
+		else {
+			elevator.desired_pitch = 0;
+		}
 	}
 
 	/**

@@ -51,4 +51,17 @@ public class Plane {
 		elevator.setTurnSpeed(turn_speed);
 		return true;
 	}
+	
+	public void correctHeading() {
+		if (!(Flight.heading <= Flight.calcDir() + 2.5 && Flight.heading >= Flight.calcDir - 2.5)) {
+			if (Flight.heading <= Flight.calcDir()) {
+				aileron.desired_roll = 15;
+				rudder.desired_yaw = 2.5;
+			}
+			else {
+				aileron.desired_roll = -15;
+				rudder.desired_yaw = -2.5;
+			}
+		}
+	}
 }

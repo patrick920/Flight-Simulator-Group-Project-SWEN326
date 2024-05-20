@@ -1,0 +1,6 @@
+{
+    "model": "Airbus A320",
+    "engine_type": "CFM56",
+    "maximum_thrust": 120,
+    "minimum_thrust": 6
+}

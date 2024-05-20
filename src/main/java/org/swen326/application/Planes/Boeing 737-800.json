@@ -1,0 +1,6 @@
+{
+    "model": "Boeing 737-800",
+    "engine_type": "CFM56-7B",
+    "maximum_thrust": 130,
+    "minimum_thrust": 6.5
+}
