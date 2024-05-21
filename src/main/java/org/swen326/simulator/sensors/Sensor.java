@@ -73,17 +73,17 @@
 		Environment.time = time;
 		Flight.setHeading(Flight.heading + (float)headingChange);
 		if (Flight.heading <= Flight.calcDir() + 2.5 && Flight.heading >= Flight.calcDir - 2.5) {
-			aileron.desired_roll = 0;
-			rudder.desired_yaw = 0;
+			aileron.expected_roll = 0;
+			rudder.expected_yaw = 0;
 		}
 		if (Flight.altitude > Flight.desired_altitude + 500) {
-			elevator.desired_pitch = -10;
+			elevator.expected_pitch = -10;
 		}
 		else if(Flight.altitude < Flight.desired_altitude - 500) {
-			elevator.desired_pitch = 25;
+			elevator.expected_pitch = 25;
 		}
 		else {
-			elevator.desired_pitch = 0;
+			elevator.expected_pitch = 0;
 		}
 	}
 

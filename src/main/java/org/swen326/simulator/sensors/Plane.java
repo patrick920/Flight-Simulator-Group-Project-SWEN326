@@ -1,5 +1,6 @@
 package org.swen326.simulator.sensors;
 import static org.junit.Assert.assertTrue;
+import org.swen326.simulator.map.Flight;
 
 public class Plane {
 	public static Ailerons aileron;
@@ -53,14 +54,14 @@ public class Plane {
 	}
 	
 	public void correctHeading() {
-		if (!(Flight.heading <= Flight.calcDir() + 2.5 && Flight.heading >= Flight.calcDir - 2.5)) {
+		if (!(Flight.heading <= Flight.calcDir() + 2.5 && Flight.heading >= Flight.calcDir() - 2.5)) {
 			if (Flight.heading <= Flight.calcDir()) {
-				aileron.desired_roll = 15;
-				rudder.desired_yaw = 2.5;
+				aileron.expected_roll = 15;
+				rudder.expected_yaw = 2.5;
 			}
 			else {
-				aileron.desired_roll = -15;
-				rudder.desired_yaw = -2.5;
+				aileron.expected_roll = -15;
+				rudder.expected_yaw = -2.5;
 			}
 		}
 	}
