@@ -1,7 +1,6 @@
   package org.swen326.simulator.sensors;
 
   import org.swen326.simulator.map.Flight;
-  import org.swen326.simulator.map.Point;
 
   public class Sensor {
 
@@ -72,7 +71,7 @@
 		Environment.altitude += altitudeClimbed;
 		Environment.time = time;
 		Flight.setHeading(Flight.heading + (float)headingChange);
-		if (Flight.heading <= Flight.calcDir() + 2.5 && Flight.heading >= Flight.calcDir - 2.5) {
+		if (Flight.heading <= Flight.calcDir() + 2.5 && Flight.heading >= Flight.calcDir() - 2.5) {
 			aileron.expected_roll = 0;
 			rudder.expected_yaw = 0;
 		}
@@ -89,6 +88,8 @@
 
 	/**
 	 * Calculate impact of thrust on pitch
+	 * @param thrust - The current thrust of the plane
+	 * @return - Thrust differential for roll and yaw
 	 */
 	public static double thrust_differential(double thrust) {
 		return (thrust - Plane.minThrust)/(Plane.maxThrust-Plane.minThrust);

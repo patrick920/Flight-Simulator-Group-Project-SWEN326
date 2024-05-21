@@ -53,6 +53,9 @@ public class Plane {
 		return true;
 	}
 	
+	/**
+	 * Autocorrect the heading of the plane
+	 */
 	public void correctHeading() {
 		if (!(Flight.heading <= Flight.calcDir() + 2.5 && Flight.heading >= Flight.calcDir() - 2.5)) {
 			if (Flight.heading <= Flight.calcDir()) {

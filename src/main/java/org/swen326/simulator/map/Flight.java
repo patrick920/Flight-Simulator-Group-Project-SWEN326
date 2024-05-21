@@ -1,6 +1,5 @@
   package org.swen326.simulator.map;
 
-  import org.swen326.simulator.map.Point;
   import org.swen326.simulator.sensors.Plane;
 
   import java.util.ArrayList;
