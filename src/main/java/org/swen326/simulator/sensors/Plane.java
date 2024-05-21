@@ -1,4 +1,6 @@
 package org.swen326.simulator.sensors;
+import org.swen326.simulator.map.Flight;
+
 import static org.junit.Assert.assertTrue;
 import org.swen326.simulator.map.Flight;
 
@@ -52,7 +54,8 @@ public class Plane {
 		elevator.setTurnSpeed(turn_speed);
 		return true;
 	}
-	
+
+	/*
 	/**
 	 * Autocorrect the heading of the plane
 	 */
@@ -68,4 +71,6 @@ public class Plane {
 			}
 		}
 	}
+
+
 }

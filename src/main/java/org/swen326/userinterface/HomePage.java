@@ -24,7 +24,16 @@ public class HomePage {
     private Button startSimulation;
     private Button closeProgram;
 
-    public HomePage(Stage stage){
+    /**
+     * A reference to the user interface object, to calls methods inside of there.
+     */
+    private UserInterface userInterface;
+
+    public HomePage(UserInterface userInterface, Stage stage){
+        this.userInterface = userInterface;
+        if(stage == null){
+            throw new IllegalArgumentException("Stage is null.");
+        }
         centreVBox = new VBox();
         
         // Aircraft type dropdown
@@ -57,8 +66,15 @@ public class HomePage {
         // Start simulation and close program buttons
         startSimulation = new Button("Start Simulation");
         startSimulation.setOnAction(e -> {
+            //TODO: Must do input validation.
+
+
             CockpitView cockpitView = new CockpitView(stage);
             cockpitView.display();
+
+            //Run the simulation.
+
+            userInterface.simulator().runSimulator();
         });
         closeProgram = new Button("Close Program");
 

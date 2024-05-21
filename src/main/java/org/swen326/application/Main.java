@@ -32,9 +32,9 @@ public class Main{
      * Initialise main program components.
      */
     private void initialise(){
-        userInterface = new UserInterface();
-        userInterface.initialise();
         simulator = new Simulator();
+        userInterface = new UserInterface();
+        userInterface.initialise(this, simulator);
         try {
             String content = new String(Files.readAllBytes(Paths.get("Boeing 737-800.json")));
             JSONObject jsonObject = new JSONObject(content);
@@ -63,4 +63,9 @@ public class Main{
         main.initialise();
     }
 
+    /**
+     * Get the simulation object.
+     * @return simulation object.
+     */
+    public Simulator simulator(){return simulator;}
 }
