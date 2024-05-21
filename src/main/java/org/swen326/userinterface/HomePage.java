@@ -104,7 +104,7 @@ public class HomePage {
         // Aircraft type dropdown
         aircraftTypeDropdown = new ComboBox<>();
         // Add aircraft types dynamically in the future
-        aircraftTypeDropdown.getItems().addAll("Boeing 747", "Airbus A320", "Cessna 172");
+        aircraftTypeDropdown.getItems().addAll("Airbus A320", "Airbus A350", "Boeing 737-800", "Boeing 777-300ER");
         aircraftTypeDropdown.setPromptText("Select Aircraft Type");
 
         // Start latitude and longitude inputs
@@ -151,6 +151,10 @@ public class HomePage {
 
         // Add action to closeProgram button to close the application
         closeProgram.setOnAction(e -> stage.close());
+    }
+
+    public String getSelectedAircraftType() {
+        return aircraftTypeDropdown.getSelectionModel().getSelectedItem();
     }
 
     /**

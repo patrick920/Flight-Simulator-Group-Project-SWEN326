@@ -63,7 +63,7 @@ public class Main extends Application{
         //userInterface.initialise();
         try {
             //Read JSON file.
-            String content = new String(Files.readAllBytes(Paths.get("Boeing 737-800.json")));
+            String content = new String(Files.readAllBytes(Paths.get("src/main/java/org/swen326/application/Planes/Boeing 737-800.json")));
             JSONObject jsonObject = new JSONObject(content);
 
             String model = jsonObject.getString("model");
@@ -88,10 +88,6 @@ public class Main extends Application{
     public static void main(String[] args) {
         System.out.println("Starting application.");
         launch();
-        //Note: there is no need to call the constructor for this class, as calling JavaFX's "launch" method
-        //seems to deal with everything.
-        //Main main = new Main();
-        //main.initialise();
     }
 
     /**
