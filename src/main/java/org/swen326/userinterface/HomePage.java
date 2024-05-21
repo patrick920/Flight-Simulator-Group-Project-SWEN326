@@ -10,6 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.swen326.simulator.Simulator;
 
 /**
  * This is the home page, which is displayed when the user first displays the program.
@@ -66,6 +67,11 @@ public class HomePage {
     private Button closeProgram;
 
     /**
+     * A reference to the simulator object which contains the simulation code.
+     */
+    private Simulator simulator;
+
+    /**
      * A reference to the user interface object, to calls methods inside of there.
      */
     private UserInterface userInterface;
@@ -75,9 +81,11 @@ public class HomePage {
      * @param userInterface
      * @param stage a reference to the stage of the JavaFX application, which is essentially the window.
      */
-    public HomePage(UserInterface userInterface, Stage stage){
+    public HomePage(Simulator simulator, UserInterface userInterface, Stage stage) {
         //Check for invalid input.
-        if(userInterface == null){
+        if(simulator == null){
+            throw new IllegalArgumentException("simulator is null.");
+        } else if(userInterface == null){
             throw new IllegalArgumentException("userInterface is null.");
         } else if(stage == null){
             throw new IllegalArgumentException("stage is null.");
@@ -116,17 +124,7 @@ public class HomePage {
 
         // Start simulation and close program buttons
         startSimulation = new Button("Start Simulation");
-        startSimulation.setOnAction(e -> {
-            //TODO: Must do input validation.
-
-
-            CockpitView cockpitView = new CockpitView(stage);
-            cockpitView.display();
-
-            //Run the simulation.
-
-            userInterface.simulator().runSimulator();
-        });
+        startSimulation.setOnAction(e -> {startSimulationButtonClicked(stage);});
         closeProgram = new Button("Close Program");
 
         // Add all elements to the VBox
@@ -146,6 +144,28 @@ public class HomePage {
 
         // Add action to closeProgram button to close the application
         closeProgram.setOnAction(e -> stage.close());
+    }
+
+    /**
+     * This method is triggered when the "startSimulation" button is clicked.
+     */
+    public void startSimulationButtonClicked(Stage stage){
+        if(stage == null){
+            throw new IllegalArgumentException("stage is null.");
+        }
+        //TODO: Must do input validation.
+        //Source: https://www.geeksforgeeks.org/javafx-textfield/
+
+        //TODO: This violates the power of ten rules: using the new keyword not during the initialisation of
+        // the program. Must initialise CockpitView before. Can keep the display() method here however.
+        CockpitView cockpitView = new CockpitView(stage);
+        cockpitView.display();
+
+        System.out.println("startLatitudeField.getText() = " + startLatitudeField.getText());
+
+        //Run the simulation.
+
+        simulator.runSimulator();
     }
 
     /**

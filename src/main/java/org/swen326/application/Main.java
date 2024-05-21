@@ -34,6 +34,7 @@ public class Main{
     private void initialise(){
         simulator = new Simulator();
         userInterface = new UserInterface();
+        System.out.println("DEBUG: In Main.java, simulator = " + simulator);
         userInterface.initialise(this, simulator);
         try {
             //Read JSON file.

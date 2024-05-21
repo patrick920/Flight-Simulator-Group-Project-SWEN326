@@ -50,21 +50,31 @@ public class UserInterface extends Application {
      */
     @Override
     public void start(Stage stage) {
+        System.out.println("Starting the JavaFX application.");
         if(stage == null){}
         String javaVersion = System.getProperty("java.version");
         String javafxVersion = System.getProperty("javafx.version");
         System.out.println("Initialising JavaFX application. JavaFX version " + javafxVersion + ", running on Java " +
                 javaVersion + ".");
         stage.setTitle("Aircraft Simulation");
-        homePage = new HomePage(this, stage); //Initialise the home page. This will NOT display it on the screen.
+        System.out.println("simulator = " + simulator);
+        homePage = new HomePage(simulator, this, stage); //Initialise the home page. This will NOT display it on the screen.
         homePage.display(stage); //Actually display the home page on the screen.
     }
+
+    /*
+    public UserInterface(Main main, Simulator simulator){
+        this.main = main;
+        this.simulator = simulator;
+    }
+    */
 
     /**
      * This method is used to initialise components for the user interface.
      */
     public void initialise(Main main, Simulator simulator){
         this.main = main;
+        System.out.println("In UserInterface.java initialise() method: simulator = " + simulator);
         this.simulator = simulator;
         launch();
     }
