@@ -17,6 +17,16 @@ import org.swen326.simulator.Simulator;
  */
 public class UserInterface extends Application {
     /**
+     * Constant that defines the window width.
+     */
+    public static final int WINDOW_WIDTH = 1280;
+
+    /**
+     * Constant that defines the window height.
+     */
+    public static final int WINDOW_HEIGHT = 720;
+
+    /**
      * The home page is displayed to the user when they start the application.
      */
     private HomePage homePage;
@@ -49,15 +59,6 @@ public class UserInterface extends Application {
         homePage = new HomePage(this, stage); //Initialise the home page. This will NOT display it on the screen.
         homePage.display(stage); //Actually display the home page on the screen.
     }
-
-    /*
-    public UserInterface(Main main, Simulator simulator){
-        //TODO: Add assertion checks.
-        this.main = main;
-        this.simulator = simulator;
-    }
-    */
-
 
     /**
      * This method is used to initialise components for the user interface.

@@ -11,17 +11,58 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * This is the home page, which is displayed when the user first displays the program.
+ */
 public class HomePage {
-    
+    /**
+     * The scene contains all of the buttons and other components for the home page.
+     */
     private Scene homeScene;
+
+    /**
+     * BorderPane layout for the home page.
+     */
     private BorderPane borderPane;
+
+    /**
+     * The VBox displays elements vertically. It is used for the home screen.
+     */
     private VBox centreVBox;
+
+    /**
+     * Dropdown to choose types of aircraft.
+     */
     private ComboBox<String> aircraftTypeDropdown;
+
+    /**
+     * Text field to enter the starting latitude for when the simulation starts.
+     */
     private TextField startLatitudeField;
+
+    /**
+     * Text field to enter the starting longitude for when the simulation starts.
+     */
     private TextField startLongitudeField;
+
+    /**
+     * Text field to enter the ending latitude (of the plane's intended destination).
+     */
     private TextField endLatitudeField;
+
+    /**
+     * Text field to enter the ending longitude (of the plane's intended destination.)
+     */
     private TextField endLongitudeField;
+
+    /**
+     * Button to start the simulation.
+     */
     private Button startSimulation;
+
+    /**
+     * Button to close the program.
+     */
     private Button closeProgram;
 
     /**
@@ -29,16 +70,26 @@ public class HomePage {
      */
     private UserInterface userInterface;
 
+    /**
+     * Create the home page.
+     * @param userInterface
+     * @param stage a reference to the stage of the JavaFX application, which is essentially the window.
+     */
     public HomePage(UserInterface userInterface, Stage stage){
-        this.userInterface = userInterface;
-        if(stage == null){
-            throw new IllegalArgumentException("Stage is null.");
+        //Check for invalid input.
+        if(userInterface == null){
+            throw new IllegalArgumentException("userInterface is null.");
+        } else if(stage == null){
+            throw new IllegalArgumentException("stage is null.");
         }
+
+        this.userInterface = userInterface;
         centreVBox = new VBox();
         
         // Aircraft type dropdown
         aircraftTypeDropdown = new ComboBox<>();
-        aircraftTypeDropdown.getItems().addAll("Boeing 747", "Airbus A320", "Cessna 172"); // Add aircraft types dynamically in the future
+        // Add aircraft types dynamically in the future
+        aircraftTypeDropdown.getItems().addAll("Boeing 747", "Airbus A320", "Cessna 172");
         aircraftTypeDropdown.setPromptText("Select Aircraft Type");
 
         // Start latitude and longitude inputs
@@ -91,13 +142,20 @@ public class HomePage {
         borderPane = new BorderPane();
         borderPane.setCenter(centreVBox);
 
-        homeScene = new Scene(borderPane, 1280, 720);
+        homeScene = new Scene(borderPane, UserInterface.WINDOW_WIDTH, UserInterface.WINDOW_HEIGHT);
 
         // Add action to closeProgram button to close the application
         closeProgram.setOnAction(e -> stage.close());
     }
 
+    /**
+     * Display the home page onto the stage (JavaFX window).
+     * @param stage
+     */
     public void display(Stage stage){
+        if(stage == null){
+            throw new IllegalArgumentException("stage is null.");
+        }
         stage.setScene(homeScene);
         stage.show();
     }

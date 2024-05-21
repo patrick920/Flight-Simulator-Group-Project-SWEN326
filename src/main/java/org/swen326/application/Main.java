@@ -36,6 +36,7 @@ public class Main{
         userInterface = new UserInterface();
         userInterface.initialise(this, simulator);
         try {
+            //Read JSON file.
             String content = new String(Files.readAllBytes(Paths.get("Boeing 737-800.json")));
             JSONObject jsonObject = new JSONObject(content);
 
@@ -49,6 +50,7 @@ public class Main{
             System.out.println("Maximum Thrust: " + maximum_thrust);
             System.out.println("Minimum Thrust: " + minimum_thrust);
         } catch (Exception e) {
+            //This may be triggered if the JSON file can't be found.
             e.printStackTrace();
         }
     }

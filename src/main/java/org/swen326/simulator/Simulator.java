@@ -7,5 +7,6 @@ public class Simulator {
      */
     public void runSimulator(){
         System.out.println("Run Simulation");
+        //TODO: Create a new Map, Flight.
     }
 }
