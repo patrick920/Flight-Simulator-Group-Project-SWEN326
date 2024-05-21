@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import org.swen326.simulator.Simulator;
+import org.swen326.userinterface.HomePage;
 import org.swen326.userinterface.UserInterface;
 
 import java.nio.file.Files;
@@ -17,7 +18,31 @@ import org.json.JSONObject;
  * SWEN326 Group Project.
  * This is a flight simulation program.
  */
-public class Main{
+public class Main extends Application{
+    /**
+     * This method is used to start the JavaFX application.
+     * @param stage the primary stage for this application, onto which
+     * the application scene can be set.
+     * Applications may create other stages, if needed, but they will not be
+     * primary stages.
+     */
+    @Override
+    public void start(Stage stage) {
+        System.out.println("Starting the JavaFX application.");
+        if(stage == null){}
+        String javaVersion = System.getProperty("java.version");
+        String javafxVersion = System.getProperty("javafx.version");
+        System.out.println("Initialising JavaFX application. JavaFX version " + javafxVersion + ", running on Java " +
+                javaVersion + ".");
+        stage.setTitle("Aircraft Simulation");
+        System.out.println("simulator = " + simulator);
+        //homePage = new HomePage(simulator, this, stage); //Initialise the home page. This will NOT display it on the screen.
+        //homePage.display(stage); //Actually display the home page on the screen.
+        initialise(); //Initialising main program components.
+
+        userInterface.initialise(stage);
+    }
+
     /**
      * This is a reference to the simulator object in the code.
      */
@@ -33,9 +58,9 @@ public class Main{
      */
     private void initialise(){
         simulator = new Simulator();
-        userInterface = new UserInterface();
+        userInterface = new UserInterface(this, simulator);
         System.out.println("DEBUG: In Main.java, simulator = " + simulator);
-        userInterface.initialise(this, simulator);
+        //userInterface.initialise();
         try {
             //Read JSON file.
             String content = new String(Files.readAllBytes(Paths.get("Boeing 737-800.json")));
@@ -62,8 +87,11 @@ public class Main{
      */
     public static void main(String[] args) {
         System.out.println("Starting application.");
-        Main main = new Main();
-        main.initialise();
+        launch();
+        //Note: there is no need to call the constructor for this class, as calling JavaFX's "launch" method
+        //seems to deal with everything.
+        //Main main = new Main();
+        //main.initialise();
     }
 
     /**

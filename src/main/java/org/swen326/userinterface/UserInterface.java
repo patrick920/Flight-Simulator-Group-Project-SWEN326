@@ -15,7 +15,7 @@ import org.swen326.simulator.Simulator;
  * https://www.tutorialspoint.com/javafx/javafx_vbox_layout.htm
  * https://www.tutorialspoint.com/javafx/javafx_ui_controls.htm
  */
-public class UserInterface extends Application {
+public class UserInterface {
     /**
      * Constant that defines the window width.
      */
@@ -42,42 +42,37 @@ public class UserInterface extends Application {
     private Simulator simulator;
 
     /**
-     * This method is used to start the JavaFX application.
+     * This method will initialise the starting components on the user interface.
      * @param stage the primary stage for this application, onto which
      * the application scene can be set.
      * Applications may create other stages, if needed, but they will not be
      * primary stages.
      */
-    @Override
-    public void start(Stage stage) {
+    public void initialise(Stage stage) {
         System.out.println("Starting the JavaFX application.");
         if(stage == null){}
-        String javaVersion = System.getProperty("java.version");
-        String javafxVersion = System.getProperty("javafx.version");
-        System.out.println("Initialising JavaFX application. JavaFX version " + javafxVersion + ", running on Java " +
-                javaVersion + ".");
         stage.setTitle("Aircraft Simulation");
         System.out.println("simulator = " + simulator);
         homePage = new HomePage(simulator, this, stage); //Initialise the home page. This will NOT display it on the screen.
         homePage.display(stage); //Actually display the home page on the screen.
     }
 
-    /*
+
     public UserInterface(Main main, Simulator simulator){
         this.main = main;
         this.simulator = simulator;
     }
-    */
 
-    /**
-     * This method is used to initialise components for the user interface.
-     */
-    public void initialise(Main main, Simulator simulator){
-        this.main = main;
-        System.out.println("In UserInterface.java initialise() method: simulator = " + simulator);
-        this.simulator = simulator;
-        launch();
-    }
+
+    ///**
+    // * This method is used to initialise components for the user interface.
+    // */
+    //public void initialise(Main main, Simulator simulator){
+    //    this.main = main;
+    //    System.out.println("In UserInterface.java initialise() method: simulator = " + simulator);
+    //    this.simulator = simulator;
+    //    launch();
+    //}
 
     /**
      * Get the reference to the simulator object.

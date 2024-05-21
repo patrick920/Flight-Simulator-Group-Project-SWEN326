@@ -77,6 +77,11 @@ public class HomePage {
     private UserInterface userInterface;
 
     /**
+     * A reference to the stage (which is the JavaFX window.)
+     */
+    private Stage stage;
+
+    /**
      * Create the home page.
      * @param userInterface
      * @param stage a reference to the stage of the JavaFX application, which is essentially the window.
@@ -91,7 +96,9 @@ public class HomePage {
             throw new IllegalArgumentException("stage is null.");
         }
 
+        this.simulator = simulator;
         this.userInterface = userInterface;
+        this.stage = stage;
         centreVBox = new VBox();
         
         // Aircraft type dropdown
