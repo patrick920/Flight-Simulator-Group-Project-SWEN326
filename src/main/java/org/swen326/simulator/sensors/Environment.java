@@ -7,7 +7,16 @@ public class Environment {
 	public static double yaw = 0;
 	public static double pitch = 0;
 	public static double airspeed = 0;
+	private Sensor[] sensors;
+
 	
+	public Environment(Sensor[] sensors) {
+        this.sensors = sensors;
+    }
+
+    public Sensor[] getSensors() {
+        return sensors;
+    }
 	
 	public static void setYaw(double yaw) {
 		if (yaw > 180) {

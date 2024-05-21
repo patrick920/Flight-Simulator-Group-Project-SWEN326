@@ -6,8 +6,12 @@
   public class Sensor {
 
 	public double variance;
-	public Sensor() {
+	private double value;
+	private String type;
+	public Sensor(String type, double value) {
 		variance = 0;
+		this.type = type;
+        this.value = value;
 	}
 
 	public double getRoll() {
@@ -111,4 +115,11 @@
 	public static double equilibrium_speed(double thrust, double pitch) {
 		return 1.467 * 600 * ((550 + (600-550)*(thrust - Plane.minThrust)/(Plane.maxThrust - Plane.minThrust))/600)/Math.pow(1.2, Environment.pitch);
 	}
+	public String getType() {
+        return type;
+    }
+
+    public double getValue() {
+        return value;
+    }
   }
