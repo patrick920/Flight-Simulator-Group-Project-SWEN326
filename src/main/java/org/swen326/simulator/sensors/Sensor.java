@@ -13,6 +13,7 @@
 		return Environment.roll + Math.random()*180*variance;
 	}
 
+	/*
 	public static void updateValues(double time, Ailerons aileron, Rudder rudder, Elevator elevator) {
 		double timeChange = time - Environment.time;
 		double distMoved;
@@ -85,6 +86,8 @@
 			elevator.expected_pitch = 0;
 		}
 	}
+	*/
+
 
 	/**
 	 * Calculate impact of thrust on pitch
