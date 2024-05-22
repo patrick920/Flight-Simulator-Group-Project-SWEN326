@@ -13,6 +13,7 @@
 	public static Plane plane;
 	public static double desired_altitude;
 	private static Flight flight = new Flight(new ArrayList<Point>(), new Point(0, 0));
+    public static double altitude;
 	private Flight(List<Point> waypoints, Point pos) {
 		Flight.waypoints = waypoints;
 		currPos = pos;
@@ -26,11 +27,11 @@
 	 * Calculate and return direction to next waypoint
 	 * @return - Direction to next waypoint
 	 */
-	public float calcDir() {
+	public static float calcDir() {
 		return getAngle(currPos, waypoints.get(0));
 	}
 
-	public float getAngle(Point pos, Point target) {
+	public static float getAngle(Point pos, Point target) {
 	    float angle = (float) Math.toDegrees(Math.atan2(pos.getY() - target.getY(), pos.getX() - target.getX()));
 
 	    return angle;

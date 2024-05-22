@@ -5,6 +5,7 @@
   public class Elevator {
 	public double expected_pitch;
 	private double turn_speed;
+    public int desired_pitch;
 	private static Elevator elevator = new Elevator();
 	private Elevator() {
 		expected_pitch = 0;;

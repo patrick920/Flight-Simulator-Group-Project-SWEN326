@@ -2,10 +2,8 @@ package org.swen326.userinterface;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -25,61 +23,43 @@ public class CockpitView extends Application {
 
     public void display() {
         BorderPane pane = new BorderPane();
-        Pane artificialHorizonPane = new Pane();
-        artificialHorizonPane.setPrefSize(250, 250);
+        ArtificialHorizon artificialHorizon = new ArtificialHorizon(250, 250);
+        YawIndicator yawIndicator = new YawIndicator(250, 100); // Adjusted height for better visibility
 
-        Canvas canvas = new Canvas(250, 250);
-        drawArtificialHorizon(canvas.getGraphicsContext2D());
+        VBox vBox = new VBox();
+        vBox.getChildren().addAll(artificialHorizon, yawIndicator);
+        vBox.setSpacing(10); // Add some spacing between components
+        // Remove the black background color from the VBox
+        // vBox.setStyle("-fx-background-color: black;");
 
-        artificialHorizonPane.getChildren().add(canvas);
-        pane.setCenter(artificialHorizonPane);
+        pane.setCenter(vBox);
 
         Scene scene = new Scene(pane, 1280, 720);
+        scene.setFill(Color.LIGHTGRAY); // Set a neutral background color for the scene
         primaryStage.setTitle("Cockpit View");
         primaryStage.setScene(scene);
         primaryStage.show();
-    }
 
-    private void drawArtificialHorizon(GraphicsContext gc) {
-        double width = gc.getCanvas().getWidth();
-        double height = gc.getCanvas().getHeight();
+        // Set up the mouse movement handler to update pitch, roll, and yaw
+        scene.setOnMouseMoved(event -> {
+            double mouseX = event.getSceneX();
+            double mouseY = event.getSceneY();
+            double centerX = scene.getWidth() / 2;
+            double centerY = scene.getHeight() / 2;
 
-        double centerX = width / 2;
-        double centerY = height / 2;
-        double radius = Math.min(width, height) / 3;
+            double pitch = centerY - mouseY; // Invert Y axis for pitch
+            double roll = mouseX - centerX;
+            double yaw = mouseX - centerX;
 
-        // Draw sky
-        gc.setFill(Color.SKYBLUE);
-        gc.fillRect(0, 0, width, centerY);
+            artificialHorizon.setPitch(pitch);
+            artificialHorizon.setRoll(roll);
+            yawIndicator.setYaw(yaw);
+        });
 
-        // Draw ground
-        gc.setFill(Color.BROWN);
-        gc.fillRect(0, centerY, width, centerY);
-
-        // Draw the circle
-        gc.setStroke(Color.BLACK);
-        gc.setLineWidth(2);
-        gc.strokeOval(centerX - radius, centerY - radius, 2 * radius, 2 * radius);
-
-        // Draw the pitch lines
-        gc.setStroke(Color.WHITE);
-        gc.setLineWidth(1);
-        for (int i = -3; i <= 3; i++) {
-            if (i != 0) {
-                double yOffset = i * (radius / 6);
-                gc.strokeLine(centerX - radius / 2, centerY + yOffset, centerX + radius / 2, centerY + yOffset);
-            }
-        }
-
-        // Draw the yaw line (horizontal)
-        gc.setStroke(Color.YELLOW);
-        gc.setLineWidth(2);
-        gc.strokeLine(centerX - radius, centerY, centerX + radius, centerY);
-
-        // Draw the roll indicator (vertical)
-        gc.setStroke(Color.RED);
-        gc.setLineWidth(2);
-        gc.strokeLine(centerX, centerY - radius, centerX, centerY + radius);
+        // For demonstration purposes, let's set some initial values
+        artificialHorizon.setPitch(0);
+        artificialHorizon.setRoll(0);
+        yawIndicator.setYaw(0);
     }
 
     public static void main(String[] args) {

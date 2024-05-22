@@ -72,7 +72,7 @@
 		Environment.altitude += altitudeClimbed;
 		Environment.time = time;
 		Flight.setHeading(Flight.heading + (float)headingChange);
-		if (Flight.heading <= Flight.calcDir() + 2.5 && Flight.heading >= Flight.calcDir - 2.5) {
+		if (Flight.heading <= Flight.calcDir() + 2.5 && Flight.heading >= Flight.calcDir() - 2.5) {
 			aileron.desired_roll = 0;
 			rudder.desired_yaw = 0;
 		}

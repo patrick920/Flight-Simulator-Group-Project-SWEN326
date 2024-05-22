@@ -5,6 +5,7 @@
   public class Ailerons {
 	public double expected_roll;
 	private double turn_speed;
+    public int desired_roll;
 	private static Ailerons aileron = new Ailerons();
 	private Ailerons() {
 		expected_roll = 0;
