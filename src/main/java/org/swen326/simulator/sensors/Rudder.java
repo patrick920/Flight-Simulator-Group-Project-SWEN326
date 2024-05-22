@@ -5,6 +5,7 @@
   public class Rudder {
 	public double expected_yaw;
 	private double turn_speed;
+    public int desired_yaw;
 	private static Rudder rudder = new Rudder();
 	private Rudder() {
 		expected_yaw = 0;

@@ -4,6 +4,8 @@ import org.swen326.simulator.map.Flight;
 import static org.junit.Assert.assertTrue;
 import org.swen326.simulator.map.Flight;
 
+import org.swen326.simulator.map.Flight;
+
 public class Plane {
 	public static Ailerons aileron;
 	public static Elevator elevator;
