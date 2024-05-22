@@ -61,5 +61,13 @@ public class YawIndicator extends Canvas {
         gc.setStroke(Color.GRAY);
         gc.setLineWidth(frameThickness);
         gc.strokeRect(frameThickness / 2, frameThickness / 2, width - frameThickness, height - frameThickness);
+
+        // Draw the box showing current yaw value
+        gc.setFill(Color.WHITE);
+        gc.fillRect(10, 10, 60, 30);
+        gc.setStroke(Color.BLACK);
+        gc.strokeRect(10, 10, 60, 30);
+        gc.setFill(Color.BLACK);
+        gc.fillText("Yaw: " + yaw, 20, 30);
     }
 }

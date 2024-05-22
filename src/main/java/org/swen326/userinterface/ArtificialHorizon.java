@@ -59,5 +59,7 @@ public class ArtificialHorizon extends Canvas {
         gc.setStroke(Color.RED);
         gc.strokeLine(width / 2 - 10, height / 2, width / 2 + 10, height / 2);
         gc.strokeLine(width / 2, height / 2 - 10, width / 2, height / 2 + 10);
+
+        
     }
 }
