@@ -13,12 +13,19 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import org.json.JSONObject;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * SWEN326 Group Project.
  * This is a flight simulation program.
  */
 public class Main extends Application{
+    private String model = "Default Model";
+    private String engine_type = "Default Engine Type";
+    private double maximum_thrust = 100;
+    private double minimum_thrust = 1;
+
     /**
      * This method is used to start the JavaFX application.
      * @param stage the primary stage for this application, onto which
@@ -60,25 +67,6 @@ public class Main extends Application{
         simulator = new Simulator();
         userInterface = new UserInterface(this, simulator);
         System.out.println("DEBUG: In Main.java, simulator = " + simulator);
-        //userInterface.initialise();
-        try {
-            //Read JSON file.
-            String content = new String(Files.readAllBytes(Paths.get("src/main/java/org/swen326/application/Planes/Boeing 737-800.json")));
-            JSONObject jsonObject = new JSONObject(content);
-
-            String model = jsonObject.getString("model");
-            String engine_type = jsonObject.getString("engine_type");
-            double maximum_thrust = jsonObject.getDouble("maximum_thrust");
-            double minimum_thrust = jsonObject.getDouble("minimum_thrust");
-
-            System.out.println("Model: " + model);
-            System.out.println("Engine Type: " + engine_type);
-            System.out.println("Maximum Thrust: " + maximum_thrust);
-            System.out.println("Minimum Thrust: " + minimum_thrust);
-        } catch (Exception e) {
-            //This may be triggered if the JSON file can't be found.
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -88,6 +76,49 @@ public class Main extends Application{
     public static void main(String[] args) {
         System.out.println("Starting application.");
         launch();
+    }
+
+    /**
+     * Method for parsing the JSON file.
+     * @param filename the name of the JSON file.
+     * @return a list of strings containing the aircraft details.
+     */
+    public List<String> parseJSON(String filename){
+        List<String> aircraftDetails = new ArrayList<String>();
+        try {
+            //Read JSON file.
+            String content = new String(Files.readAllBytes(Paths.get("src/main/java/org/swen326/application/Planes/" + filename)));
+            JSONObject jsonObject = new JSONObject(content);
+
+            //Get the aircraft details.
+            model = jsonObject.getString("model");
+            engine_type = jsonObject.getString("engine_type");
+            maximum_thrust = jsonObject.getDouble("maximum_thrust");
+            minimum_thrust = jsonObject.getDouble("minimum_thrust");
+
+            //Print the aircraft details.
+            System.out.println("Model: " + model);
+            System.out.println("Engine Type: " + engine_type);
+            System.out.println("Maximum Thrust: " + maximum_thrust);
+            System.out.println("Minimum Thrust: " + minimum_thrust);
+
+            //Add the aircraft details to the list.
+            aircraftDetails.add("Model: " + model);
+            aircraftDetails.add("Engine Type: " + engine_type);
+            aircraftDetails.add("Maximum Thrust: " + maximum_thrust);
+            aircraftDetails.add("Minimum Thrust: " + minimum_thrust);
+        } catch (Exception e) {
+            //This may be triggered if the JSON file can't be found.
+            e.printStackTrace();
+        }
+        return aircraftDetails;
+    }
+
+    /**
+     * Method for starting the simulation.
+     */
+    public void startSimulation(){
+        simulator.runSimulator(maximum_thrust,minimum_thrust);
     }
 
     /**

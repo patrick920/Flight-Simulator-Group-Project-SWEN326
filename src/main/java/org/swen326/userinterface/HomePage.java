@@ -10,6 +10,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.util.List;
+
+import org.swen326.application.Main;
 import org.swen326.simulator.Simulator;
 
 /**
@@ -174,9 +178,11 @@ public class HomePage {
 
         System.out.println("startLatitudeField.getText() = " + startLatitudeField.getText());
 
-        //Run the simulation.
-
-        simulator.runSimulator();
+        //Call the main class for JSON parsing.
+        Main main = new Main();
+        String aircraftType = getSelectedAircraftType();
+        List<String> aircraftDetails = main.parseJSON(aircraftType);
+        main.startSimulation();
     }
 
     /**
