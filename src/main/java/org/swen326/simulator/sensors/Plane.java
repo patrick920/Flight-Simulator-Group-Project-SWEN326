@@ -2,9 +2,6 @@ package org.swen326.simulator.sensors;
 import org.swen326.simulator.map.Flight;
 
 import static org.junit.Assert.assertTrue;
-import org.swen326.simulator.map.Flight;
-
-import org.swen326.simulator.map.Flight;
 
 public class Plane {
 	public static Ailerons aileron;
@@ -61,7 +58,7 @@ public class Plane {
 	/**
 	 * Autocorrect the heading of the plane
 	 */
-	public void correctHeading() {
+	public static void correctHeading() {
 		if (!(Flight.heading <= Flight.calcDir() + 2.5 && Flight.heading >= Flight.calcDir() - 2.5)) {
 			if (Flight.heading <= Flight.calcDir()) {
 				aileron.expected_roll = 15;

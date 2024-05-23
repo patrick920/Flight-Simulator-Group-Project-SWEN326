@@ -2,6 +2,7 @@
 
   import org.swen326.simulator.sensors.Plane;
 
+
   import java.util.ArrayList;
   import java.util.List;
 
@@ -16,6 +17,11 @@
 	private Flight(List<Point> waypoints, Point pos) {
 		Flight.waypoints = waypoints;
 		currPos = pos;
+	}
+
+	public static void setAltitude(double altitude) throws AssertionError{
+		assert altitude > 0 && altitude < 42000;
+		desired_altitude = altitude;
 	}
 
 	public Flight getFlight() {

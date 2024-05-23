@@ -11,5 +11,12 @@ public class Engine {
 	public static double getThrust() {
 		return (left_thrust + right_thrust)/2;
 	}
+
+	public static void setThrust(double thrust) {
+		assert thrust <= Plane.maxThrust;
+		assert thrust >= Plane.minThrust;
+		Engine.left_thrust = thrust;
+		Engine.right_thrust = thrust;
+	}
 	
 }
