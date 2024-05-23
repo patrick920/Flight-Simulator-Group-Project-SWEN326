@@ -58,4 +58,35 @@ public class Simulator {
     public void setYaw(double yaw){
         Plane.setYaw(yaw, 0.1);
     }
+
+    /**
+     * Validate the latitude before the simulation starts.
+     * The latitude is the North-South measurement (Y axis).
+     * It must be between 90 and -90 (inclusive).
+     * @param startLatitudeValue
+     * @return
+     */
+    public ValidateProblem validateLatitude(String startLatitudeValue){
+        if(startLatitudeValue == null){
+            throw new IllegalArgumentException("startLatitudeValue is null.");
+        }
+        //Source: https://education.nationalgeographic.org/resource/latitude/
+        double startLatitudeNum;
+        String regularMessage = "Please enter a number that is less than or equal to 90 and greater than or equal to -90.";
+        try{
+            startLatitudeNum = Double.parseDouble(startLatitudeValue);
+        } catch(NumberFormatException nfe){
+            //The string is not a number so return false.
+            return new ValidateProblem(false, "Error. The latitude you entered (" + startLatitudeValue + ") is not a valid number."
+                    + regularMessage);
+        }
+        if(startLatitudeNum > 90){
+            return new ValidateProblem(false, "Error. The latitude you entered is greater than 90."
+                    + regularMessage);
+        } else if(startLatitudeNum < -90){
+            return new ValidateProblem(false, "Error. The latitude you entered is less than 90."
+                    + regularMessage);
+        }
+        return new ValidateProblem(true, "");
+    }
 }

@@ -2,10 +2,7 @@ package org.swen326.userinterface;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -15,6 +12,7 @@ import java.util.List;
 
 import org.swen326.application.Main;
 import org.swen326.simulator.Simulator;
+import org.swen326.simulator.ValidateProblem;
 
 /**
  * This is the home page, which is displayed when the user first displays the program.
@@ -167,9 +165,30 @@ public class HomePage {
     public void startSimulationButtonClicked(Stage stage){
         if(stage == null){
             throw new IllegalArgumentException("stage is null.");
+        } else if(startLatitudeField == null){
+            throw new IllegalArgumentException("startLatitudeField is null.");
         }
+
+
         //TODO: Must do input validation.
         //Source: https://www.geeksforgeeks.org/javafx-textfield/
+        ValidateProblem startLatitudeVP = simulator.validateLatitude(startLatitudeField.getText());
+        if(!startLatitudeVP.validated()){
+            //Code from: https://www.tutorialspoint.com/how-to-create-a-dialog-in-javafx
+            //Creating a dialog
+            Dialog<String> dialog = new Dialog<String>();
+            //Setting the title
+            dialog.setTitle("Error validating input.");
+            ButtonType type = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
+            //Setting the content of the dialog
+            dialog.setContentText("The starting latitude value you entered is invalid:\n" +
+                    startLatitudeVP.errorMessage());
+            dialog.setHeight(400);
+            //Adding buttons to the dialog pane
+            dialog.getDialogPane().getButtonTypes().add(type);
+            dialog.showAndWait();
+            return; //Return from this function to prevent the simulator from being run.
+        }
 
         //TODO: This violates the power of ten rules: using the new keyword not during the initialisation of
         // the program. Must initialise CockpitView before. Can keep the display() method here however.
@@ -184,6 +203,8 @@ public class HomePage {
         List<String> aircraftDetails = main.parseJSON(aircraftType);
         main.startSimulation();
     }
+
+    public void displayInvalidInputMessage(){}
 
     /**
      * Display the home page onto the stage (JavaFX window).
