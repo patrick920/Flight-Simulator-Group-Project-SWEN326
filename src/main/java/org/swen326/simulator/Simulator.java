@@ -18,7 +18,7 @@ import org.swen326.simulator.sensors.Sensor;
  *
  * @author nickw
  */
-public class Simulator {
+public class Simulator implements TimerRun {
 
     public static List<Sensor> aileron_sensors;
     public static List<Sensor> elevator_sensors;
@@ -31,12 +31,27 @@ public class Simulator {
     public boolean elevator_redundancy;
 
     /**
+     * The simulator timer runs on a separate thread.
+     */
+    private SimulatorTimer simulatorTimer;
+
+    /**
+     * The simulator is responsible for the aircraft simulation.
+     */
+    public Simulator(){
+        simulatorTimer = new SimulatorTimer(this, this, 120, 10, 36000);
+    }
+
+    /**
      * @param maximum_thrust - Maximum thrust of plane model
      * @param minimum_thrust - Minimum thrust of plane model
      * Start running the simulation. This method is called from the user interface when the
      * "Start Simulation" button is clicked.
      */
     public void runSimulator(double maximum_thrust, double minimum_thrust){
+        //TODO: This code violates the Power of ten rules as you are calling the "new"
+        // keyword not during initialisation of the program.
+        // Additionally, the values double maximum_thrust, double minimum_thrust are must be validated.
         Simulator.rudder_sensors = new ArrayList<Sensor>();
         Simulator.elevator_sensors = new ArrayList<Sensor>();
         Simulator.aileron_sensors = new ArrayList<>();
@@ -54,6 +69,12 @@ public class Simulator {
         aileron_redundancy = true;
         rudder_redundancy = true;
         elevator_redundancy = true;
+
+        //Start the simulation loop. This starts a new method that will call the "runEveryFrame()" method and the
+        //"runEverySecond" method 120 times per second. These methods are in this file (scroll down to see them.)
+        if (simulatorTimer.getTimerState() == SimulatorTimer.TimerState.NOT_ACTIVE) {
+            simulatorTimer.startTimer();
+        }
     }
 
     /**
@@ -207,5 +228,25 @@ public class Simulator {
                     + regularMessage);
         }
         return new ValidateProblem(true, "");
+    }
+
+    /**
+     * This method is automatically executed by the timer every frame.
+     *
+     * @param timer
+     */
+    @Override
+    public void runEveryFrame(SimulatorTimer timer) {
+        //TODO: Update the plane's location etc... as it is moving.
+    }
+
+    /**
+     * This method is automatically executed by the timer every
+     *
+     * @param timer
+     */
+    @Override
+    public void runEverySecond(SimulatorTimer timer) {
+        System.out.println("Running timer: timer.currentSecond() = " + timer.currentSecond());
     }
 }
