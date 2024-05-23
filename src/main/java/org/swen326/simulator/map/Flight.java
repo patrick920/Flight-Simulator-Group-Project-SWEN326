@@ -12,7 +12,7 @@
 	public static Plane plane;
 	public static double desired_altitude;
 	public static double altitude;
-	private final static Flight flight = new Flight(new ArrayList<Point>(), new Point(0, 0));
+	private final static Flight flight = new Flight(new ArrayList<Point>(), new Point(0, 0, 0));
 	private Flight(List<Point> waypoints, Point pos) {
 		Flight.waypoints = waypoints;
 		currPos = pos;

@@ -6,8 +6,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import org.swen326.simulator.Simulator;
+import org.swen326.simulator.map.Map;
 import org.swen326.userinterface.HomePage;
 import org.swen326.userinterface.UserInterface;
+import org.swen326.simulator.sensors.Plane;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -46,7 +48,7 @@ public class Main extends Application{
     /**
      * This is a reference to the simulator object in the code.
      */
-    private Simulator simulator;
+    private static Simulator simulator;
 
     /**
      * The UserInterface class contains the JavaFX application.
@@ -81,6 +83,33 @@ public class Main extends Application{
         }
     }
 
+    public static Plane createPlane(String aircraftType){
+        //Read JSON file and create a new Plane object.
+        try {
+            //Read JSON file.
+            String content = new String(Files.readAllBytes(Paths.get("src/main/java/org/swen326/application/Planes/" + aircraftType + ".json")));
+            JSONObject jsonObject = new JSONObject(content);
+
+            String model = jsonObject.getString("model");
+            String engine_type = jsonObject.getString("engine_type");
+            double maximum_thrust = jsonObject.getDouble("maximum_thrust");
+            double minimum_thrust = jsonObject.getDouble("minimum_thrust");
+
+            System.out.println("Model: " + model);
+            System.out.println("Engine Type: " + engine_type);
+            System.out.println("Maximum Thrust: " + maximum_thrust);
+            System.out.println("Minimum Thrust: " + minimum_thrust);
+
+            Plane plane = new Plane(model, engine_type, maximum_thrust, minimum_thrust);
+
+            return plane;
+        } catch (Exception e) {
+            //This may be triggered if the JSON file can't be found.
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     /**
      * The main method is called when the Java program starts.
      * @param args program arguments. We're not using these in this project.
@@ -95,4 +124,17 @@ public class Main extends Application{
      * @return simulation object.
      */
     public Simulator simulator(){return simulator;}
+
+    public static void startSimulation(String aircraftType, double startLatitude, double startLongitude, double endLatitude, double endLongitude){
+        System.out.println("Starting simulation.");
+
+        Plane plane = createPlane(aircraftType);
+        //map should take a list of waypoints.
+
+        Map map = new Map();
+        map.addWaypoint(startLatitude, startLongitude, 0.0);
+        map.addWaypoint(endLatitude, endLongitude, 0.0);
+
+        simulator.runSimulator(plane, map);
+    }
 }

@@ -15,6 +15,15 @@ public class Plane {
 	public static double minThrust;
 	
 	
+	public Plane(String model, String engine_type, double maximum_thrust, double minimum_thrust) {
+		aileron = Ailerons.getAileron();
+		elevator = Elevator.getElevator();
+		rudder = Rudder.getRudder();
+		sensors = new Sensor();
+		maxThrust = maximum_thrust;
+		minThrust = minimum_thrust;
+	}
+
 	/**
 	 * Adjust ailerons to achieve desired roll with desired speed. Throw AssertionError if invalid parameters.
 	 * @param desired_roll - Correct roll that the plane will aim to achieve

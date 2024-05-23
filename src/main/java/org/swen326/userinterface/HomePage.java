@@ -173,10 +173,6 @@ public class HomePage {
         cockpitView.display();
 
         System.out.println("startLatitudeField.getText() = " + startLatitudeField.getText());
-
-        //Run the simulation.
-
-        simulator.runSimulator();
     }
 
     /**
