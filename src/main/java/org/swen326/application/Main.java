@@ -87,7 +87,7 @@ public class Main extends Application{
         List<String> aircraftDetails = new ArrayList<String>();
         try {
             //Read JSON file.
-            String content = new String(Files.readAllBytes(Paths.get("src/main/java/org/swen326/application/Planes/" + filename)));
+            String content = new String(Files.readAllBytes(Paths.get("src/main/java/org/swen326/application/Planes/" + filename + ".json")));
             JSONObject jsonObject = new JSONObject(content);
 
             //Get the aircraft details.
