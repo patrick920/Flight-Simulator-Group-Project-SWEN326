@@ -79,7 +79,6 @@ public class Simulator {
         Plane.setYaw(yaw, 0.1);
     }
 
-<<<<<<< HEAD
     public double getRoll(){
         Map<Double, Integer> vals = new HashMap<>();
         
@@ -128,28 +127,26 @@ public class Simulator {
         return Collections.max(vals.entrySet(), Map.Entry.comparingByValue()).getKey();
     }
 
-    public double getPitch(){
+    public double getPitch() {
         Map<Double, Integer> vals = new HashMap<>();
-        
-        for (Sensor sens : Simulator.elevator_sensors){
+
+        for (Sensor sens : Simulator.elevator_sensors) {
             double val = sens.getYaw();
-            if (!vals.keySet().contains(val)){
+            if (!vals.keySet().contains(val)) {
                 vals.put(val, 1);
-            }
-            else {
+            } else {
                 vals.put(val, vals.get(val) + 1);
             }
         }
 
-        if (vals.keySet().size() != 1){
+        if (vals.keySet().size() != 1) {
             elevator_redundancy = false;
-        }
-        else {
+        } else {
             elevator_redundancy = true;
         }
 
         return Collections.max(vals.entrySet(), Map.Entry.comparingByValue()).getKey();
-=======
+    }
     /**
      * Validate the latitude before the simulation starts.
      * The latitude is the North-South measurement (Y axis).
@@ -179,6 +176,5 @@ public class Simulator {
                     + regularMessage);
         }
         return new ValidateProblem(true, "");
->>>>>>> 0bd7e3107c8ad54c3cad39663dfe260abb4466c3
     }
 }
