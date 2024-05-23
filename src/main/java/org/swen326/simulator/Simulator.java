@@ -151,21 +151,21 @@ public class Simulator {
      * Validate the latitude before the simulation starts.
      * The latitude is the North-South measurement (Y axis).
      * It must be between 90 and -90 (inclusive).
-     * @param startLatitudeValue
+     * @param latitudeValue The latitude value to validate.
      * @return
      */
-    public ValidateProblem validateLatitude(String startLatitudeValue){
-        if(startLatitudeValue == null){
+    public ValidateProblem validateLatitude(String latitudeValue){
+        if(latitudeValue == null){
             throw new IllegalArgumentException("startLatitudeValue is null.");
         }
         //Source: https://education.nationalgeographic.org/resource/latitude/
         double startLatitudeNum;
         String regularMessage = "Please enter a number that is less than or equal to 90 and greater than or equal to -90.";
         try{
-            startLatitudeNum = Double.parseDouble(startLatitudeValue);
+            startLatitudeNum = Double.parseDouble(latitudeValue);
         } catch(NumberFormatException nfe){
             //The string is not a number so return false.
-            return new ValidateProblem(false, "Error. The latitude you entered (" + startLatitudeValue + ") is not a valid number."
+            return new ValidateProblem(false, "Error. The latitude you entered (" + latitudeValue + ") is not a valid number."
                     + regularMessage);
         }
         if(startLatitudeNum > 90){
@@ -173,6 +173,37 @@ public class Simulator {
                     + regularMessage);
         } else if(startLatitudeNum < -90){
             return new ValidateProblem(false, "Error. The latitude you entered is less than 90."
+                    + regularMessage);
+        }
+        return new ValidateProblem(true, "");
+    }
+
+    /**
+     * Validate the longitude before the simulation starts.
+     * The longitude is the East-West measurement (X axis).
+     * It must be between 180 and -180 (inclusive).
+     * @param longitudeValue The longitude value to validate.
+     * @return
+     */
+    public ValidateProblem validateLongitude(String longitudeValue){
+        if(longitudeValue == null){
+            throw new IllegalArgumentException("startLatitudeValue is null.");
+        }
+        //Source: https://www.nationalgeographic.org/encyclopedia/longitude/
+        double startLatitudeNum;
+        String regularMessage = "Please enter a number that is less than or equal to 90 and greater than or equal to -90.";
+        try{
+            startLatitudeNum = Double.parseDouble(longitudeValue);
+        } catch(NumberFormatException nfe){
+            //The string is not a number so return false.
+            return new ValidateProblem(false, "Error. The longitude you entered (" + longitudeValue + ") is not a valid number. "
+                    + regularMessage);
+        }
+        if(startLatitudeNum > 180){
+            return new ValidateProblem(false, "Error. The longitude you entered is greater than " +
+                    "180. " + regularMessage);
+        } else if(startLatitudeNum < -180){
+            return new ValidateProblem(false, "Error. The latitude you entered is less than 180. "
                     + regularMessage);
         }
         return new ValidateProblem(true, "");

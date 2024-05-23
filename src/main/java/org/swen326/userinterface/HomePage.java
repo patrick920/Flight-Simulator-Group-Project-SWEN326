@@ -182,21 +182,44 @@ public class HomePage {
         //Source: https://www.geeksforgeeks.org/javafx-textfield/
         ValidateProblem startLatitudeVP = simulator.validateLatitude(startLatitudeField.getText());
         if(!startLatitudeVP.validated()){
-            //Code from: https://www.tutorialspoint.com/how-to-create-a-dialog-in-javafx
-            //Creating a dialog
-            Dialog<String> dialog = new Dialog<String>();
-            //Setting the title
-            dialog.setTitle("Error validating input.");
-            ButtonType type = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
-            //Setting the content of the dialog
-            dialog.setContentText("The starting latitude value you entered is invalid:\n" +
-                    startLatitudeVP.errorMessage());
-            dialog.setHeight(400);
-            //Adding buttons to the dialog pane
-            dialog.getDialogPane().getButtonTypes().add(type);
-            dialog.showAndWait();
-            return; //Return from this function to prevent the simulator from being run.
+            displayInvalidInputMessage("The starting latitude value you entered is invalid:", startLatitudeVP);
+            return;
         }
+
+        ValidateProblem startLongitudeVP = simulator.validateLongitude(startLongitudeField.getText());
+        if(!startLongitudeVP.validated()){
+            displayInvalidInputMessage("The starting longitude value you entered is invalid:", startLongitudeVP);
+            return;
+        }
+
+        ValidateProblem endLatitudeVP = simulator.validateLatitude(endLatitudeField.getText());
+        if(!endLatitudeVP.validated()){
+            displayInvalidInputMessage("The end latitude value you entered is invalid:", endLatitudeVP);
+            return;
+        }
+
+        ValidateProblem endLongitudeVP = simulator.validateLongitude(endLongitudeField.getText());
+        if(!endLongitudeVP.validated()){
+            displayInvalidInputMessage("The end latitude value you entered is invalid:", endLongitudeVP);
+            return;
+        }
+//        ValidateProblem startLatitudeVP = simulator.validateLatitude(startLatitudeField.getText());
+//        if(!startLatitudeVP.validated()){
+//            //Code from: https://www.tutorialspoint.com/how-to-create-a-dialog-in-javafx
+//            //Creating a dialog
+//            Dialog<String> dialog = new Dialog<String>();
+//            //Setting the title
+//            dialog.setTitle("Error validating input.");
+//            ButtonType type = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
+//            //Setting the content of the dialog
+//            dialog.setContentText("The starting latitude value you entered is invalid:\n" +
+//                    startLatitudeVP.errorMessage());
+//            dialog.setHeight(400);
+//            //Adding buttons to the dialog pane
+//            dialog.getDialogPane().getButtonTypes().add(type);
+//            dialog.showAndWait();
+//            return; //Return from this function to prevent the simulator from being run.
+//        }
 
         //TODO: This violates the power of ten rules: using the new keyword not during the initialisation of
         // the program. Must initialise CockpitView before. Can keep the display() method here however.
@@ -212,7 +235,29 @@ public class HomePage {
         simulator.runSimulator(0, 0); //TODO: Change placeholder values of 0.
     }
 
-    public void displayInvalidInputMessage(){}
+    public void displayInvalidInputMessage(String startingMessage, ValidateProblem vp){
+        //Source: https://www.geeksforgeeks.org/javafx-textfield/
+        if (startingMessage == null){
+            throw new IllegalArgumentException("startingMessage is null");
+        } else if(vp.validated()){
+            throw new IllegalArgumentException("vp.validated() is true. It should be false, as the" +
+                    " input is incorrect!");
+        }
+        //Code from: https://www.tutorialspoint.com/how-to-create-a-dialog-in-javafx
+        //Creating a dialog
+        Dialog<String> dialog = new Dialog<String>();
+        //Setting the title
+        dialog.setTitle("Error validating input.");
+        ButtonType type = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
+        //Setting the content of the dialog
+        dialog.setContentText(startingMessage + "\n" +
+                vp.errorMessage());
+        dialog.setHeight(400);
+        //Adding buttons to the dialog pane
+        dialog.getDialogPane().getButtonTypes().add(type);
+        dialog.showAndWait();
+
+    }
 
     /**
      * Display the home page onto the stage (JavaFX window).
