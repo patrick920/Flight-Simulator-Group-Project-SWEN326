@@ -200,7 +200,7 @@ public class HomePage {
 
         ValidateProblem endLongitudeVP = simulator.validateLongitude(endLongitudeField.getText());
         if(!endLongitudeVP.validated()){
-            displayInvalidInputMessage("The starting latitude value you entered is invalid:", endLongitudeVP);
+            displayInvalidInputMessage("The end latitude value you entered is invalid:", endLongitudeVP);
             return;
         }
 //        ValidateProblem startLatitudeVP = simulator.validateLatitude(startLatitudeField.getText());

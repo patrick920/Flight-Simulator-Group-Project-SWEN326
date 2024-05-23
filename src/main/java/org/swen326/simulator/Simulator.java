@@ -108,14 +108,14 @@ public class Simulator {
             startLatitudeNum = Double.parseDouble(longitudeValue);
         } catch(NumberFormatException nfe){
             //The string is not a number so return false.
-            return new ValidateProblem(false, "Error. The latitude you entered (" + longitudeValue + ") is not a valid number."
+            return new ValidateProblem(false, "Error. The longitude you entered (" + longitudeValue + ") is not a valid number. "
                     + regularMessage);
         }
-        if(startLatitudeNum > 90){
-            return new ValidateProblem(false, "Error. The latitude you entered is greater than 90."
-                    + regularMessage);
-        } else if(startLatitudeNum < -90){
-            return new ValidateProblem(false, "Error. The latitude you entered is less than 90."
+        if(startLatitudeNum > 180){
+            return new ValidateProblem(false, "Error. The longitude you entered is greater than " +
+                    "180. " + regularMessage);
+        } else if(startLatitudeNum < -180){
+            return new ValidateProblem(false, "Error. The latitude you entered is less than 180. "
                     + regularMessage);
         }
         return new ValidateProblem(true, "");
