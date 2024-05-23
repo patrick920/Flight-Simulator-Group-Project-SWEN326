@@ -84,13 +84,20 @@ public class HomePage {
     private Stage stage;
 
     /**
+     * A reference to the main class of the project.
+     */
+    private Main main;
+
+    /**
      * Create the home page.
      * @param userInterface
      * @param stage a reference to the stage of the JavaFX application, which is essentially the window.
      */
-    public HomePage(Simulator simulator, UserInterface userInterface, Stage stage) {
+    public HomePage(Main main, Simulator simulator, UserInterface userInterface, Stage stage) {
         //Check for invalid input.
-        if(simulator == null){
+        if(main == null){
+            throw new IllegalArgumentException("main is null.");
+        } else if(simulator == null){
             throw new IllegalArgumentException("simulator is null.");
         } else if(userInterface == null){
             throw new IllegalArgumentException("userInterface is null.");
@@ -98,6 +105,7 @@ public class HomePage {
             throw new IllegalArgumentException("stage is null.");
         }
 
+        this.main = main;
         this.simulator = simulator;
         this.userInterface = userInterface;
         this.stage = stage;
@@ -198,10 +206,10 @@ public class HomePage {
         System.out.println("startLatitudeField.getText() = " + startLatitudeField.getText());
 
         //Call the main class for JSON parsing.
-        Main main = new Main();
+        //Main main = new Main();
         String aircraftType = getSelectedAircraftType();
         List<String> aircraftDetails = main.parseJSON(aircraftType);
-        main.startSimulation();
+        simulator.runSimulator(0, 0); //TODO: Change placeholder values of 0.
     }
 
     public void displayInvalidInputMessage(){}

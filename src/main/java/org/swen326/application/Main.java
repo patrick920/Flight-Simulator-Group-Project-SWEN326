@@ -114,12 +114,13 @@ public class Main extends Application{
         return aircraftDetails;
     }
 
-    /**
+    /*
      * Method for starting the simulation.
+     * Note: This method is not needed as this happens in UserInterface.java.
      */
-    public void startSimulation(){
-        simulator.runSimulator(maximum_thrust,minimum_thrust);
-    }
+    //public void startSimulation(){
+    //    simulator.runSimulator(maximum_thrust,minimum_thrust);
+    //}
 
     /**
      * Get the simulation object.

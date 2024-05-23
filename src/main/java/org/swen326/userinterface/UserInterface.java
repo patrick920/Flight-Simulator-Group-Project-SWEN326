@@ -53,7 +53,7 @@ public class UserInterface {
         if(stage == null){}
         stage.setTitle("Aircraft Simulation");
         System.out.println("simulator = " + simulator);
-        homePage = new HomePage(simulator, this, stage); //Initialise the home page. This will NOT display it on the screen.
+        homePage = new HomePage(main, simulator, this, stage); //Initialise the home page. This will NOT display it on the screen.
         homePage.display(stage); //Actually display the home page on the screen.
     }
 
