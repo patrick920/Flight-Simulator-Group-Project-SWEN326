@@ -70,9 +70,8 @@ public class SimulatorTimer implements Runnable {
      * @param timerRun The TimerRun interface provides methods that will be executed every frame and every second.
      * @param fps Frames per second for the timer.
      * @param framesPerMove How many frames it takes for one entire move to complete.
-     * @param maxTime Maximum time before
      */
-    public SimulatorTimer(Simulator simulator, TimerRun timerRun, int fps, int framesPerMove, int maxTime){
+    public SimulatorTimer(Simulator simulator, TimerRun timerRun, int fps, int framesPerMove){
         this.simulator = simulator;
         timerState = TimerState.NOT_ACTIVE;
         timerThread = new Thread(this); //Create a new thread, but don't actually start it.
@@ -135,6 +134,17 @@ public class SimulatorTimer implements Runnable {
         currentFrame--;
         if(currentFrame % fps == 0){
             currentSecond--;
+        }
+    }
+
+    /**
+     * Increase the current frame by one. Increase the current second by one if all of the frames
+     * for one second have passed.
+     */
+    private void increaseTimer(){
+        currentFrame++;
+        if(currentFrame % fps == 0){
+            currentSecond++;
         }
     }
 
@@ -210,15 +220,15 @@ public class SimulatorTimer implements Runnable {
                 break; //If the variable to exit the thread is true, stop the thread.
             }
 
-            if(currentFrame <= 0){
-                //Timer has finished. Restart the game.
-                //app.restartGame(true);
-                System.out.println("Timer has finished.");
-                return;
-            }
+            //if(currentFrame <= 0){
+            //    //Timer has finished. Restart the game.
+            //    //app.restartGame(true);
+            //    System.out.println("Timer has finished.");
+            //    return;
+            //}
 
-            //Decrease the currentFrame, and potentially currentSecond if all frames in a second have passed:
-            decreaseTimer();
+            //Increase the currentFrame, and potentially currentSecond if all frames in a second have passed:
+            increaseTimer();
             if(currentFrame % fps == 0){
                 System.out.println("currentSecond = " + currentSecond + " | currentFrame = " + currentFrame);
                 timerRun.runEverySecond(this);
