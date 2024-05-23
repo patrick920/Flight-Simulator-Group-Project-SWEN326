@@ -70,14 +70,11 @@ public class Simulator implements TimerRun {
         rudder_redundancy = true;
         elevator_redundancy = true;
 
-        //Start the simulation loop.
-    }
-
-    /**
-     * This method is executed 120 times per second.
-     */
-    public void runSimulationLoop(){
-
+        //Start the simulation loop. This starts a new method that will call the "runEveryFrame()" method and the
+        //"runEverySecond" method 120 times per second. These methods are in this file (scroll down to see them.)
+        if (simulatorTimer.getTimerState() == SimulatorTimer.TimerState.NOT_ACTIVE) {
+            simulatorTimer.startTimer();
+        }
     }
 
     /**
@@ -240,7 +237,7 @@ public class Simulator implements TimerRun {
      */
     @Override
     public void runEveryFrame(SimulatorTimer timer) {
-        System.out.println("Running timer: timer.currentSecond() = " + timer.currentSecond());
+        //TODO: Update the plane's location etc... as it is moving.
     }
 
     /**
@@ -250,6 +247,6 @@ public class Simulator implements TimerRun {
      */
     @Override
     public void runEverySecond(SimulatorTimer timer) {
-
+        System.out.println("Running timer: timer.currentSecond() = " + timer.currentSecond());
     }
 }
