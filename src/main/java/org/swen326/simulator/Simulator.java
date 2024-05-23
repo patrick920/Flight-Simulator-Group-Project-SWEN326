@@ -63,7 +63,7 @@ public class Simulator {
      * Validate the latitude before the simulation starts.
      * The latitude is the North-South measurement (Y axis).
      * It must be between 90 and -90 (inclusive).
-     * @param startLatitudeValue
+     * @param latitudeValue The latitude value to validate.
      * @return
      */
     public ValidateProblem validateLatitude(String latitudeValue){
@@ -94,7 +94,7 @@ public class Simulator {
      * Validate the longitude before the simulation starts.
      * The longitude is the East-West measurement (X axis).
      * It must be between 180 and -180 (inclusive).
-     * @param longitudeValue
+     * @param longitudeValue The longitude value to validate.
      * @return
      */
     public ValidateProblem validateLongitude(String longitudeValue){
