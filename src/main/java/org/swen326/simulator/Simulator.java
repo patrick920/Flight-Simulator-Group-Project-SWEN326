@@ -39,7 +39,7 @@ public class Simulator implements TimerRun {
      * The simulator is responsible for the aircraft simulation.
      */
     public Simulator(){
-        simulatorTimer = new SimulatorTimer(this, this, 120, 10, 36000);
+        simulatorTimer = new SimulatorTimer(this, this, 120, 10);
     }
 
     /**
