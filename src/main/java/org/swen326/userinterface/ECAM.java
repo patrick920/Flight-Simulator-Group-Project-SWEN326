@@ -19,8 +19,8 @@ import java.util.List;
  */
 public class ECAM extends HBox {
 
-    private List<String> warningMessages;
-    private List<String> normalMessages;
+    List<String> warningMessages;
+    List<String> normalMessages;
     private VBox warningColumn;
     private VBox normalColumn;
 
