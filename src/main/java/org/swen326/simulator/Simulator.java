@@ -43,18 +43,6 @@ public class Simulator implements TimerRun {
      */
     public Simulator(){
         simulatorTimer = new SimulatorTimer(this, this, 120, 10);
-    }
-
-    /**
-     * @param maximum_thrust - Maximum thrust of plane model
-     * @param minimum_thrust - Minimum thrust of plane model
-     * Start running the simulation. This method is called from the user interface when the
-     * "Start Simulation" button is clicked.
-     */
-    public void runSimulator(double maximum_thrust, double minimum_thrust){
-        //TODO: This code violates the Power of ten rules as you are calling the "new"
-        // keyword not during initialisation of the program.
-        // Additionally, the values double maximum_thrust, double minimum_thrust are must be validated.
         Simulator.rudder_sensors = new ArrayList<Sensor>();
         Simulator.elevator_sensors = new ArrayList<Sensor>();
         Simulator.aileron_sensors = new ArrayList<>();
@@ -67,6 +55,19 @@ public class Simulator implements TimerRun {
         aileron = Ailerons.getAileron();
         rudder = Rudder.getRudder();
         elevator = Elevator.getElevator();
+
+    }
+
+    /**
+     * @param maximum_thrust - Maximum thrust of plane model
+     * @param minimum_thrust - Minimum thrust of plane model
+     * Start running the simulation. This method is called from the user interface when the
+     * "Start Simulation" button is clicked.
+     */
+    public void runSimulator(double maximum_thrust, double minimum_thrust, Stage stage){
+        //TODO: This code violates the Power of ten rules as you are calling the "new"
+        // keyword not during initialisation of the program.
+        // Additionally, the values double maximum_thrust, double minimum_thrust are must be validated.
         Plane.maxThrust = maximum_thrust;
         Plane.minThrust = minimum_thrust;
         aileron_redundancy = true;
@@ -77,6 +78,11 @@ public class Simulator implements TimerRun {
         //"runEverySecond" method 120 times per second. These methods are in this file (scroll down to see them.)
         if (simulatorTimer.getTimerState() == SimulatorTimer.TimerState.NOT_ACTIVE) {
             simulatorTimer.startTimer();
+            stage.setOnCloseRequest((value) -> {
+                System.out.println("Stopping application.");
+                simulatorTimer.pauseTimer();
+            });
+
         }
     }
 

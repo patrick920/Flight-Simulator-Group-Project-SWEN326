@@ -4,6 +4,8 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
+import javafx.stage.Stage;
 import org.junit.Before;
 import org.junit.Test;
 import org.swen326.fdi.fdi;
@@ -76,7 +78,7 @@ public class fdiTest {
     }
     @Test
     public void test2oo3Architecture(){
-        Simulator sim = new Simulator(400, 100);
+        Simulator sim = new Simulator();
         Simulator.aileron_sensors.get(0).variance = 1;
         Environment.roll = 1.0;
         assertTrue("Failed test. Two out of three redundant architecture is non-functional", sim.getRoll() == 1.0);
