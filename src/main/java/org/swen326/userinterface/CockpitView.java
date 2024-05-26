@@ -6,9 +6,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
+import java.util.Arrays;
+
+import org.swen326.simulator.map.Point;
 
 public class CockpitView extends Application {
 
@@ -49,6 +54,20 @@ public class CockpitView extends Application {
         
         pane.setCenter(vBox);
         pane.setRight(controls);
+
+        // Instantiate and set up the MapDisplay
+        MapDisplay mapDisplay = new MapDisplay(400, 400);
+        mapDisplay.setWaypoints(Arrays.asList(
+            new Point(100, 100),
+            new Point(200, 150),
+            new Point(300, 200),
+            new Point(400, 250)
+        ));
+        mapDisplay.setCurrentPosition(new Point(250, 175));
+
+        // Add the MapDisplay to the left side of the pane
+        pane.setLeft(mapDisplay);
+        BorderPane.setMargin(mapDisplay, new Insets(10)); // Add some margin for better appearance
 
         Scene scene = new Scene(pane, 1280, 720);
         scene.setFill(Color.LIGHTGRAY); // Set a neutral background color for the scene

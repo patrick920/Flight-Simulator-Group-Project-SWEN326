@@ -1,12 +1,15 @@
 package org.swen326.Test;
-import org.junit.Before;
-import org.junit.Test;
-import org.swen326.simulator.sensors.Sensor;
-import org.swen326.fdi.fdi;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import org.junit.Before;
+import org.junit.Test;
+import org.swen326.fdi.fdi;
+import org.swen326.simulator.Simulator;
+import org.swen326.simulator.sensors.Environment;
+import org.swen326.simulator.sensors.Sensor;
 
 public class fdiTest {
     private fdi faultDetection;
@@ -70,5 +73,13 @@ public class fdiTest {
         // Verify the corrective actions
         assertEquals(1, correctiveActions.size());
         assertTrue(correctiveActions.get(0).contains("Performing corrective action for sensor: Sensor"));
+    }
+    @Test
+    public void test2oo3Architecture(){
+        Simulator sim = new Simulator(400, 100);
+        Simulator.aileron_sensors.get(0).variance = 1;
+        Environment.roll = 1.0;
+        assertTrue("Failed test. Two out of three redundant architecture is non-functional", sim.getRoll() == 1.0);
+        assertTrue("Redundancy lost with no warning.", sim.aileron_redundancy == false);
     }
 }
