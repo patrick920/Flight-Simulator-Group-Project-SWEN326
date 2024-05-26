@@ -2,9 +2,9 @@ package org.swen326.simulator;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 
 import org.swen326.simulator.map.Flight;
 import org.swen326.simulator.sensors.Ailerons;
@@ -39,7 +39,7 @@ public class Simulator implements TimerRun {
      * The simulator is responsible for the aircraft simulation.
      */
     public Simulator(double maximum_thrust, double minimum_thrust){
-        simulatorTimer = new SimulatorTimer(this, this, 120, 10, 36000);
+        simulatorTimer = new SimulatorTimer(this, this, 120, 10);
         Simulator.rudder_sensors = new ArrayList<Sensor>();
         Simulator.elevator_sensors = new ArrayList<Sensor>();
         Simulator.aileron_sensors = new ArrayList<>();
