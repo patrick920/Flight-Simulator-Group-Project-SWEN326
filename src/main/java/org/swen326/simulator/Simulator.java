@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
+import javafx.event.EventHandler;
+import javafx.stage.WindowEvent;
 import org.swen326.simulator.map.Flight;
 import org.swen326.simulator.sensors.Ailerons;
 import org.swen326.simulator.sensors.Elevator;
@@ -13,6 +15,7 @@ import org.swen326.simulator.sensors.Engine;
 import org.swen326.simulator.sensors.Plane;
 import org.swen326.simulator.sensors.Rudder;
 import org.swen326.simulator.sensors.Sensor;
+import javafx.stage.Stage;
 
 /**
  *
@@ -48,7 +51,7 @@ public class Simulator implements TimerRun {
      * Start running the simulation. This method is called from the user interface when the
      * "Start Simulation" button is clicked.
      */
-    public void runSimulator(double maximum_thrust, double minimum_thrust){
+    public void runSimulator(double maximum_thrust, double minimum_thrust, Stage stage){
         //TODO: This code violates the Power of ten rules as you are calling the "new"
         // keyword not during initialisation of the program.
         // Additionally, the values double maximum_thrust, double minimum_thrust are must be validated.
@@ -74,6 +77,10 @@ public class Simulator implements TimerRun {
         //"runEverySecond" method 120 times per second. These methods are in this file (scroll down to see them.)
         if (simulatorTimer.getTimerState() == SimulatorTimer.TimerState.NOT_ACTIVE) {
             simulatorTimer.startTimer();
+            stage.setOnCloseRequest((value) -> {
+                System.out.println("Stopping application.");
+                simulatorTimer.pauseTimer();
+            });
         }
     }
 

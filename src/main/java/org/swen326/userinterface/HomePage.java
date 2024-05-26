@@ -232,7 +232,7 @@ public class HomePage {
         //Main main = new Main();
         String aircraftType = getSelectedAircraftType();
         List<String> aircraftDetails = main.parseJSON(aircraftType);
-        simulator.runSimulator(0, 0); //TODO: Change placeholder values of 0.
+        simulator.runSimulator(0, 0, stage); //TODO: Change placeholder values of 0.
     }
 
     public void displayInvalidInputMessage(String startingMessage, ValidateProblem vp){

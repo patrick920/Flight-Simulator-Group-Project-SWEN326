@@ -47,6 +47,8 @@ public class Main extends Application{
         //homePage.display(stage); //Actually display the home page on the screen.
         initialise(); //Initialising main program components.
 
+
+
         userInterface.initialise(stage);
     }
 
