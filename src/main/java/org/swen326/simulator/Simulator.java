@@ -38,20 +38,8 @@ public class Simulator implements TimerRun {
     /**
      * The simulator is responsible for the aircraft simulation.
      */
-    public Simulator(){
+    public Simulator(double maximum_thrust, double minimum_thrust){
         simulatorTimer = new SimulatorTimer(this, this, 120, 10, 36000);
-    }
-
-    /**
-     * @param maximum_thrust - Maximum thrust of plane model
-     * @param minimum_thrust - Minimum thrust of plane model
-     * Start running the simulation. This method is called from the user interface when the
-     * "Start Simulation" button is clicked.
-     */
-    public void runSimulator(double maximum_thrust, double minimum_thrust){
-        //TODO: This code violates the Power of ten rules as you are calling the "new"
-        // keyword not during initialisation of the program.
-        // Additionally, the values double maximum_thrust, double minimum_thrust are must be validated.
         Simulator.rudder_sensors = new ArrayList<Sensor>();
         Simulator.elevator_sensors = new ArrayList<Sensor>();
         Simulator.aileron_sensors = new ArrayList<>();
@@ -69,6 +57,18 @@ public class Simulator implements TimerRun {
         aileron_redundancy = true;
         rudder_redundancy = true;
         elevator_redundancy = true;
+    }
+
+    /**
+     * @param maximum_thrust - Maximum thrust of plane model
+     * @param minimum_thrust - Minimum thrust of plane model
+     * Start running the simulation. This method is called from the user interface when the
+     * "Start Simulation" button is clicked.
+     */
+    public void runSimulator(){
+        //TODO: This code violates the Power of ten rules as you are calling the "new"
+        // keyword not during initialisation of the program.
+        // Additionally, the values double maximum_thrust, double minimum_thrust are must be validated.
 
         //Start the simulation loop. This starts a new method that will call the "runEveryFrame()" method and the
         //"runEverySecond" method 120 times per second. These methods are in this file (scroll down to see them.)
