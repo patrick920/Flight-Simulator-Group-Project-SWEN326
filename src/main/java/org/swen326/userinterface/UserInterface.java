@@ -42,6 +42,11 @@ public class UserInterface {
     private Simulator simulator;
 
     /**
+     * A reference to the stage which is the JavaFX application on the screen.
+     */
+    private Stage stage;
+
+    /**
      * This method will initialise the starting components on the user interface.
      * @param stage the primary stage for this application, onto which
      * the application scene can be set.
@@ -49,6 +54,7 @@ public class UserInterface {
      * primary stages.
      */
     public void initialise(Stage stage) {
+        this.stage = stage;
         System.out.println("Starting the JavaFX application.");
         if(stage == null){}
         stage.setTitle("Aircraft Simulation");
@@ -63,6 +69,11 @@ public class UserInterface {
         this.simulator = simulator;
     }
 
+    /**
+     * Get the stage which is the JavaFX window.
+     * @return stage which is the JavaFX window.
+     */
+    public Stage stage(){return stage;}
 
     ///**
     // * This method is used to initialise components for the user interface.
