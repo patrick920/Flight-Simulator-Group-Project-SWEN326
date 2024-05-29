@@ -1,4 +1,4 @@
-package org.swen326.Test;
+package org.swen326.fdi;
 import java.util.ArrayList;
 import java.util.List;
 

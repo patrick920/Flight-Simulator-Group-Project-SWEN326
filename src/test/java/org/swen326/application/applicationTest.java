@@ -6,6 +6,12 @@ import java.util.List;
 
 public class applicationTest {
     @Test
+    void testMain() {
+        Main main = new Main();
+        assertNotNull(main);
+    }
+
+    @Test
     void testParseJSON_A320() {
         Main main = new Main();
         List<String> result = main.parseJSON("Airbus A320");
