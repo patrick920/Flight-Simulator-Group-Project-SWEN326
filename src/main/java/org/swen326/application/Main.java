@@ -1,18 +1,12 @@
 package org.swen326.application;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import org.swen326.simulator.Simulator;
 import org.swen326.simulator.sensors.Sensor;
 import org.swen326.simulator.sensors.Sensor.SensorType;
-import org.swen326.userinterface.HomePage;
 import org.swen326.userinterface.UserInterface;
 import org.swen326.fdi.fdi;
-
-
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
