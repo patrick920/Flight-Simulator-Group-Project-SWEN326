@@ -6,8 +6,13 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import org.swen326.simulator.Simulator;
+import org.swen326.simulator.sensors.Sensor;
+import org.swen326.simulator.sensors.Sensor.SensorType;
 import org.swen326.userinterface.HomePage;
 import org.swen326.userinterface.UserInterface;
+import org.swen326.fdi.fdi;
+
+
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -15,6 +20,9 @@ import java.nio.file.Paths;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimerTask;
+import java.util.Timer;
+
 
 /**
  * SWEN326 Group Project.
@@ -50,6 +58,9 @@ public class Main extends Application{
 
 
         userInterface.initialise(stage);
+
+        // Start monitoring sensors
+        startMonitoringSensors();
     }
 
     /**
@@ -61,7 +72,10 @@ public class Main extends Application{
      * The UserInterface class contains the JavaFX application.
      */
     private UserInterface userInterface;
-
+    /**
+     * The FDI class instance.
+     */
+    private fdi fdiSystem;
     /**
      * Initialise main program components.
      */
@@ -69,6 +83,18 @@ public class Main extends Application{
         simulator = new Simulator();
         userInterface = new UserInterface(this, simulator);
         System.out.println("DEBUG: In Main.java, simulator = " + simulator);
+
+        // Initialize sensors
+        List<Sensor> sensors = new ArrayList<>();
+        sensors.add(new Sensor(SensorType.AIRSPEED, 100));
+        sensors.add(new Sensor(SensorType.ALTITUDE, 5000));
+        sensors.add(new Sensor(SensorType.PITCH, 0));
+        sensors.add(new Sensor(SensorType.ROLL, 0));
+        sensors.add(new Sensor(SensorType.YAW, 0));
+
+        // Initialize FDI system
+        fdiSystem = new fdi(sensors, userInterface);
+        System.out.println("DEBUG: FDI system initialized with sensors: " + sensors);
     }
 
     /**
@@ -79,7 +105,24 @@ public class Main extends Application{
         System.out.println("Starting application.");
         launch();
     }
-
+    /**
+     * Start monitoring sensors.
+     */
+    private void startMonitoringSensors() {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Simulate sensor value updates
+                for (Sensor sensor : fdiSystem.getSensors()) {
+                    double newValue = sensor.getValue() + Math.random() * 10 - 5; // Example update logic
+                    sensor.setValue(newValue);
+                    System.out.println("DEBUG: Updated sensor " + sensor.getType() + " to value: " + newValue);
+                }
+                fdiSystem.monitorSensors();
+            }
+        }, 0, 1000); // Update every second
+    }
     /**
      * Method for parsing the JSON file.
      * @param filename the name of the JSON file.

@@ -1,10 +1,16 @@
   package org.swen326.simulator.sensors;
 
   import org.swen326.simulator.map.Flight;
+ 
 
   public class Sensor {
-
+    
+	private SensorType type;
 	public double variance;
+	private double value;
+	public enum SensorType {
+		AIRSPEED, ALTITUDE, PITCH, ROLL, YAW
+	  }
 	public Sensor() {
 		variance = 0;
 	}
@@ -16,7 +22,6 @@
 	public double getYaw() {
 		return Environment.yaw + Math.random()*180*variance;
 	}
-
 	
 	public static void updateValues(double time, Ailerons aileron, Rudder rudder, Elevator elevator) {
 		double timeChange = time - Environment.time;
@@ -119,4 +124,22 @@
 	public static double equilibrium_speed(double thrust, double pitch) {
 		return 1.467 * 600 * ((550 + (600-550)*(thrust - Plane.minThrust)/(Plane.maxThrust - Plane.minThrust))/600)/Math.pow(1.2, Environment.pitch);
 	}
+    // Constructor
+    public Sensor(SensorType type, double value) {
+        this.type = type;
+        this.value = value;
+    }
+	// Getter for the sensor value
+	 public double getValue() {
+        return this.value;
+    }
+	// Getter for sensor type
+    public SensorType getType() {
+        return this.type;
+    }
+
+    // Optionally, a setter for sensor value if values are dynamic
+    public void setValue(double value) {
+        this.value = value;
+    }
   }
