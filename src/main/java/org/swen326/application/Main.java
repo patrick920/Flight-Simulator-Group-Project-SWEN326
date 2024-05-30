@@ -1,6 +1,7 @@
 package org.swen326.application;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 import org.swen326.simulator.Simulator;
 import org.swen326.simulator.sensors.Sensor;
@@ -52,9 +53,18 @@ public class Main extends Application{
 
 
         userInterface.initialise(stage);
-
+        
         // Start monitoring sensors
-        startMonitoringSensors();
+        fdiSystem.startMonitoring();
+
+        // Ensure the monitoring is stopped when the application is closed
+        stage.setOnCloseRequest(event -> {
+            System.out.println("DEBUG: Closing application, stopping monitoring.");
+            fdiSystem.stopMonitoring(); // Ensure sensor monitoring stops
+            simulator.stop(); // Ensure simulator stops
+            Platform.exit(); // Ensure the JavaFX application exits
+            System.exit(0); // Ensure the application exits completely
+        });
     }
 
     /**
@@ -89,6 +99,8 @@ public class Main extends Application{
         // Initialize FDI system
         fdiSystem = new fdi(sensors, userInterface);
         System.out.println("DEBUG: FDI system initialized with sensors: " + sensors);
+
+
     }
 
     /**
@@ -98,24 +110,6 @@ public class Main extends Application{
     public static void main(String[] args) {
         System.out.println("Starting application.");
         launch();
-    }
-    /**
-     * Start monitoring sensors.
-     */
-    private void startMonitoringSensors() {
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                // Simulate sensor value updates
-                for (Sensor sensor : fdiSystem.getSensors()) {
-                    double newValue = sensor.getValue() + Math.random() * 10 - 5; // Example update logic
-                    sensor.setValue(newValue);
-                    System.out.println("DEBUG: Updated sensor " + sensor.getType() + " to value: " + newValue);
-                }
-                fdiSystem.monitorSensors();
-            }
-        }, 0, 1000); // Update every second
     }
     /**
      * Method for parsing the JSON file.
@@ -152,6 +146,7 @@ public class Main extends Application{
         }
         return aircraftDetails;
     }
+
 
     /*
      * Method for starting the simulation.

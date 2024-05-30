@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.stage.WindowEvent;
 import org.swen326.simulator.map.Flight;
@@ -32,6 +33,7 @@ public class Simulator implements TimerRun {
     public boolean aileron_redundancy;
     public boolean rudder_redundancy;
     public boolean elevator_redundancy;
+    private List<Sensor> sensors;
 
     /**
      * The simulator timer runs on a separate thread.
@@ -81,8 +83,22 @@ public class Simulator implements TimerRun {
             stage.setOnCloseRequest((value) -> {
                 System.out.println("Stopping application.");
                 simulatorTimer.pauseTimer();
-            });
+                System.out.println("Sensor stopping monitoring.");
+                stop(); // Ensure the simulator stops
+                Platform.exit();
+                System.exit(0);
+            
+            });             
+            
 
+        }
+    }
+    /**
+     * Stop the simulator timer.
+     */
+    public void stop() {
+        if (simulatorTimer != null && simulatorTimer.getTimerState() == SimulatorTimer.TimerState.PLAYING) {
+            simulatorTimer.pauseTimer();
         }
     }
 
@@ -248,7 +264,9 @@ public class Simulator implements TimerRun {
     public void runEveryFrame(SimulatorTimer timer) {
         //TODO: Update the plane's location etc... as it is moving.
     }
-
+    public List<Sensor> getSensors() {
+        return sensors;
+    }
     /**
      * This method is automatically executed by the timer every
      *
