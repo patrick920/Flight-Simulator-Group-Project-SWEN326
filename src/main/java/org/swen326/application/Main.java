@@ -59,7 +59,7 @@ public class Main extends Application{
 
         // Ensure the monitoring is stopped when the application is closed
         stage.setOnCloseRequest(event -> {
-            System.out.println("DEBUG: Closing application, stopping monitoring.");
+            System.out.println("Closing application, stopping monitoring.");
             fdiSystem.stopMonitoring(); // Ensure sensor monitoring stops
             simulator.stop(); // Ensure simulator stops
             Platform.exit(); // Ensure the JavaFX application exits
@@ -98,7 +98,7 @@ public class Main extends Application{
 
         // Initialize FDI system
         fdiSystem = new fdi(sensors, userInterface);
-        System.out.println("DEBUG: FDI system initialized with sensors: " + sensors);
+        System.out.println("FDI system initialized with sensors: " + sensors);
 
 
     }

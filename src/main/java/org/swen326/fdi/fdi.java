@@ -39,7 +39,7 @@ public class fdi {
                 double change = Math.random() * 10 - 5;
                 double newValue = sensor.getValue() + change;
                 sensor.setValue(newValue);
-                System.out.println("DEBUG: Updated sensor " + sensor.getType() + " to value: " + newValue);
+                System.out.println("Updated sensor " + sensor.getType() + " to value: " + newValue);
                 monitorSensors();
             }
         }, 0, 5, TimeUnit.SECONDS);
@@ -61,7 +61,7 @@ public class fdi {
             scheduler.shutdownNow();
             Thread.currentThread().interrupt();
         }
-        System.out.println("DEBUG: Monitoring stopped.");
+        System.out.println("Monitoring stopped.");
         
         // Exit the application
         Platform.exit(); // Exit JavaFX application
@@ -74,7 +74,7 @@ public class fdi {
     public void monitorSensors() {
         for (Sensor sensor : sensors) {
             double value = sensor.getValue();
-            System.out.println("DEBUG: Monitoring sensor " + sensor.getType() + " with value: " + value);
+            System.out.println("Monitoring sensor " + sensor.getType() + " with value: " + value);
             switch (sensor.getType()) {
                 case AIRSPEED:
                     if (value < 50 || value > 500) {
@@ -119,7 +119,7 @@ public class fdi {
      * @param value The current pitch value.
      */
     private void adjustPitch(double value) {
-        System.out.println("DEBUG: Adjusting pitch from: " + value);
+        System.out.println("Adjusting pitch from: " + value);
     }
 
     /**
@@ -128,7 +128,7 @@ public class fdi {
      * @param value The current roll value.
      */
     private void adjustRoll(double value) {
-        System.out.println("DEBUG: Adjusting roll from: " + value);
+        System.out.println("Adjusting roll from: " + value);
     }
 
     /**
@@ -137,7 +137,7 @@ public class fdi {
      * @param value The current yaw value.
      */
     private void adjustYaw(double value) {
-        System.out.println("DEBUG: Adjusting yaw from: " + value);
+        System.out.println("Adjusting yaw from: " + value);
     }
 
     /**
@@ -147,7 +147,7 @@ public class fdi {
      * @param message The alert message.
      */
     private void triggerAlert(String severity, String message) {
-        System.out.println("DEBUG: Triggering alert - " + severity + ": " + message);
+        System.out.println("Triggering alert - " + severity + ": " + message);
         ui.triggerAlert(severity, message);
     }
 
@@ -157,7 +157,7 @@ public class fdi {
      * @param value The current airspeed value.
      */
     private void adjustThrust(double value) {
-        System.out.println("DEBUG: Adjusting thrust: Current Airspeed = " + value);
+        System.out.println("Adjusting thrust: Current Airspeed = " + value);
     }
 
     /**
@@ -166,6 +166,6 @@ public class fdi {
      * @param value The current altitude value.
      */
     private void adjustAltitude(double value) {
-        System.out.println("DEBUG: Corrective action: Adjusting altitude");
+        System.out.println("Corrective action: Adjusting altitude");
     }
 }
