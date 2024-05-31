@@ -24,6 +24,14 @@ public class ArtificialHorizon extends Canvas {
         draw();
     }
 
+    public double getPitch() {
+        return pitch;
+    }
+
+    public double getRoll() {
+        return roll;
+    }
+
     public synchronized void setPitch(double pitch) {
         if (Double.isNaN(pitch) || Double.isInfinite(pitch)) {
             throw new IllegalArgumentException("Pitch must be a finite number");

@@ -77,4 +77,8 @@ public class YawIndicator extends Canvas {
             gc.fillText("Yaw: " + yaw, 20, 30);
         });
     }
+
+    public Integer getYaw() {
+        return (int) yaw;
+    }
 }
