@@ -24,7 +24,7 @@
 		desired_altitude = altitude;
 	}
 
-	public Flight getFlight() {
+	public static Flight getFlight() {
 		return flight;
 	}
 	
