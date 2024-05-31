@@ -23,9 +23,7 @@ public class ECAMLogicTest {
     @Test
     public void testSendWarningWithInvalidLevel() {
         String message = "Test warning message";
-        assertDoesNotThrow(() -> {
-            ecamLogic.sendWarning(message, -1);
-        });
+        ecamLogic.sendWarning(message, -1);
         assertEquals(1, ecamLogic.getNormalMessages().size());
         assertEquals(message, ecamLogic.getNormalMessages().get(0));
     }
@@ -78,5 +76,13 @@ public class ECAMLogicTest {
         }
         assertEquals(10, ecamLogic.getNormalMessages().size());
         assertEquals("Normal 2", ecamLogic.getNormalMessages().get(0));
+    }
+
+    @Test
+    public void testDefaultCaseForInvalidLevel() {
+        String message = "Default warning message";
+        ecamLogic.sendWarning(message, 99);
+        assertEquals(1, ecamLogic.getNormalMessages().size());
+        assertEquals(message, ecamLogic.getNormalMessages().get(0));
     }
 }

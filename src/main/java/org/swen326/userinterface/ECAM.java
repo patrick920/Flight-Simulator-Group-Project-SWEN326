@@ -18,8 +18,8 @@ import java.util.List;
 public class ECAM extends HBox {
 
     private ECAMLogic logic;
-    private VBox warningColumn;
-    private VBox normalColumn;
+    VBox warningColumn;
+    VBox normalColumn;
 
     /**
      * Constructs a new ECAM with the specified width and height.
