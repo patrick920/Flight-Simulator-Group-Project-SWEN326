@@ -1,6 +1,7 @@
 package org.swen326.userinterface;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -69,7 +70,7 @@ public class UserInterface {
         this.main = main;
         this.simulator = simulator;
     }
-
+   
     /**
      * Get the stage which is the JavaFX window.
      * @return stage which is the JavaFX window.
@@ -91,18 +92,19 @@ public class UserInterface {
      * @return reference to the simulator object.
      */
     public Simulator simulator(){return simulator;}
-
-        /**
+    /**
      * This method will display an alert message to the user.
      * @param severity the severity level of the alert.
      * @param message the message to display in the alert.
      */
-    public static void triggerAlert(String severity, String message) {
+    public void triggerAlert(String severity, String message) {
         System.out.println("DEBUG: UserInterface displaying alert - " + severity + ": " + message);
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(severity);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(severity);
+            alert.setHeaderText(null);
+            alert.setContentText(message);
+            alert.showAndWait();
+        });
     }
 }
