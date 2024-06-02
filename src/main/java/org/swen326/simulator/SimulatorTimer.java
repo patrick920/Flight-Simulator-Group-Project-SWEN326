@@ -13,12 +13,12 @@ public class SimulatorTimer implements Runnable {
     /**
      * The current frame where the timer is at. This will keep counting down when the timer is playing.
      */
-    private int currentFrame;
+    private long currentFrame;
 
     /**
      * The current second where the timer is at. This will keep counting down when the timer is playing.
      */
-    private int currentSecond;
+    private long currentSecond;
 
     /**
      * The state that the timer is currently in. It could be playing, paused or not active.
@@ -118,13 +118,13 @@ public class SimulatorTimer implements Runnable {
      * Get the current frame the timer is currently at.
      * @return current frame.
      */
-    public int currentFrame(){return currentFrame;}
+    public long currentFrame(){return currentFrame;}
 
     /**
      * Return the current second the timer is at.
      * @return current second the timer is at.
      */
-    public int currentSecond(){return currentSecond;}
+    public long currentSecond(){return currentSecond;}
 
     /**
      * Decrease the current frame by one. Decrease the current second by one if all of the frames
