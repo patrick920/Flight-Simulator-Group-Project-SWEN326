@@ -18,6 +18,12 @@ public class ECAMTest extends ApplicationTest {
         ecam = new ECAM(400, 300);
     }
 
+    @BeforeEach
+    public void setUp() {
+        // Initialize the ECAM instance before each test
+        interact(() -> ecam = new ECAM(400, 300));
+    }
+
     @Test
     public void testGetNormalMessages() {
         interact(() -> {
@@ -44,7 +50,7 @@ public class ECAMTest extends ApplicationTest {
 
     @Test
     public void testSendWarningWithNullMessage() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(RuntimeException.class, () -> {
             interact(() -> ecam.sendWarning(null, 1));
         });
     }

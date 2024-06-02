@@ -1,5 +1,6 @@
 package org.swen326.userinterface;
 
+import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -17,9 +18,9 @@ import java.util.List;
  */
 public class ECAM extends HBox {
 
-    private ECAMLogic logic;
-    VBox warningColumn;
-    VBox normalColumn;
+    private final ECAMLogic logic;
+    final VBox warningColumn;
+    final VBox normalColumn;
 
     /**
      * Constructs a new ECAM with the specified width and height.
@@ -50,42 +51,53 @@ public class ECAM extends HBox {
      * @param level   the level of severity (0-3)
      * @throws IllegalArgumentException if the message is null
      */
-    public void sendWarning(String message, int level) {
+    public synchronized void sendWarning(String message, int level) {
         logic.sendWarning(message, level);
 
+        Platform.runLater(() -> {
+            Label label = createLabel(message, level);
+            if (level >= 1 && level <= 3) {
+                warningColumn.getChildren().add(label);
+                if (warningColumn.getChildren().size() > 10) {
+                    warningColumn.getChildren().remove(0);
+                }
+            } else {
+                normalColumn.getChildren().add(label);
+                if (normalColumn.getChildren().size() > 10) {
+                    normalColumn.getChildren().remove(0);
+                }
+            }
+        });
+    }
+
+    /**
+     * Creates a label for the message with the specified level of severity.
+     * 
+     * @param message the warning message
+     * @param level   the level of severity (0-3)
+     * @return the created Label
+     */
+    private Label createLabel(String message, int level) {
         Label label = new Label(message);
         label.setFont(new Font("Arial", 16));
-
         switch (level) {
             case 3:
                 label.setTextFill(Color.RED);
-                warningColumn.getChildren().add(label);
                 break;
             case 2:
                 label.setTextFill(Color.ORANGE);
-                warningColumn.getChildren().add(label);
                 break;
             case 1:
                 label.setTextFill(Color.YELLOW);
-                warningColumn.getChildren().add(label);
                 break;
             case 0:
                 label.setTextFill(Color.LIGHTGREEN);
-                normalColumn.getChildren().add(label);
                 break;
             default:
                 label.setTextFill(Color.WHITE);
-                normalColumn.getChildren().add(label);
                 break;
         }
-
-        // Maintain the message limit for both columns
-        if (logic.getWarningMessages().size() > 10) {
-            warningColumn.getChildren().remove(0);
-        }
-        if (logic.getNormalMessages().size() > 10) {
-            normalColumn.getChildren().remove(0);
-        }
+        return label;
     }
 
     public List<String> getWarningMessages() {
@@ -95,48 +107,49 @@ public class ECAM extends HBox {
     public List<String> getNormalMessages() {
         return logic.getNormalMessages();
     }
-}
 
-class ECAMLogic {
-    private List<String> warningMessages;
-    private List<String> normalMessages;
+    /**
+     * The ECAMLogic class is responsible for managing the warning and normal messages.
+     */
+    private static class ECAMLogic {
+        private final List<String> warningMessages;
+        private final List<String> normalMessages;
 
-    public ECAMLogic() {
-        warningMessages = new ArrayList<>();
-        normalMessages = new ArrayList<>();
-    }
-
-    public void sendWarning(String message, int level) {
-        if (message == null) {
-            throw new IllegalArgumentException("Message cannot be null");
+        public ECAMLogic() {
+            warningMessages = new ArrayList<>();
+            normalMessages = new ArrayList<>();
         }
 
-        switch (level) {
-            case 3:
-            case 2:
-            case 1:
-                warningMessages.add(message);
-                break;
-            case 0:
-            default:
-                normalMessages.add(message);
-                break;
+        public synchronized void sendWarning(String message, int level) {
+            if (message == null) {
+                throw new IllegalArgumentException("Message cannot be null");
+            }
+
+            switch (level) {
+                case 3:
+                case 2:
+                case 1:
+                    warningMessages.add(message);
+                    if (warningMessages.size() > 10) {
+                        warningMessages.remove(0);
+                    }
+                    break;
+                case 0:
+                default:
+                    normalMessages.add(message);
+                    if (normalMessages.size() > 10) {
+                        normalMessages.remove(0);
+                    }
+                    break;
+            }
         }
 
-        // Maintain the message limit for both lists
-        if (warningMessages.size() > 10) {
-            warningMessages.remove(0);
+        public List<String> getWarningMessages() {
+            return warningMessages;
         }
-        if (normalMessages.size() > 10) {
-            normalMessages.remove(0);
+
+        public List<String> getNormalMessages() {
+            return normalMessages;
         }
-    }
-
-    public List<String> getWarningMessages() {
-        return warningMessages;
-    }
-
-    public List<String> getNormalMessages() {
-        return normalMessages;
     }
 }
