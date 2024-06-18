@@ -1,4 +1,8 @@
-# SWEN326 Project
+# SWEN326 (Safety-Critical Systems) Project
+This project aimed to create a plane simulator to simulate a safety-critical system. It follows some (but not all) characterisitics of the DO-178C standard. We have a user interface with several controls and simulation code for the plane, but unfortunately we did not have time to combine them so the project is incomplete. Prior to working on the code, we made a group agreement, a requirements plan, high-level and low-level requirements, and a design document.
+
+## Run Instructions
+Instructions on how to run the code in IntelliJ, Eclipse and Visual Studio Code using Maven are provided in `Documentation/Maven Run Instructions (SWEN326 Project).pdf`.
 
 ## Members
 | Name | Username | Email |
