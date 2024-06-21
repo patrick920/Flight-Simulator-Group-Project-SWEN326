@@ -11,6 +11,7 @@ This project was made in Java. We decided to use JavaFX to make the user interfa
 - Simulator: This contains the code for the plane, engine and other aspects of the simulation. It also contains the timer.
 - User Interface: This contains the code for the user interface such as buttons and sliders. It was implemented in JavaFX.
 <p> We have also programmed JUnit tests (automated tests) to test some aspects of the code.
+
 ## Improvements
 Unfortunately we did not have time to complete the project. We made a functional user interface with buttons and sliders. We also wrote code for the simulation (plane, engine, etc...). However, we did not manage to combine these together. The sliders on the interface don't do anything useful.
 <p>As this is safety-critical system, we tried to implement good code features. However, this has not been implemented everywhere. In addition, there are missing Javadoc comments in some of the classes.
